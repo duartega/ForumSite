@@ -66,7 +66,7 @@ export default function Footer(props) {
       {DownVote ? DownVote : "0"}
       <p
       style={styles.comment}
-      onClick={() => console.log("clicked")}
+      onClick={() => console.log("This will make the comment module popout from under the current post")}
       >Add Comment</p>
     </div>
   )
