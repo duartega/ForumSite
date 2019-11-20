@@ -24,7 +24,7 @@ export default function Header(props) {
         <p style={styles.UserName}>Gabriel Duarte</p>
         <p style={styles.UserName}>10/19/2020</p>
         <p style={styles.UserName}>Viewed: {props.views ? props.views + " " : "0 " } times</p>
-        <h2 style={styles.Header}>Aliens Exist!</h2>
+        <h2 style={styles.Header}>How does a woodchuck chuck wood?</h2>
         {/* <p style={styles.UserName}>{props.username}</p>
         <p style={styles.UserName}>{props.date}</p>
         <h2 style={styles.Header}>{props.headerTitle}</h2> */}

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import MainPostPage from './Post/MainPostPage';
+import MainPostPage from './Post/CreatePost';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(<MainPostPage />, document.getElementById('root'));

@@ -15,6 +15,8 @@ const styles = {
   }
 };
 
+const randomText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
 export default function MainPostPage(props) {
   return (
     <Col className="user-post-content" style={styles.Root}>
@@ -25,7 +27,7 @@ export default function MainPostPage(props) {
       views={props.views}
       />
       <hr/>
-      <Body body={"this is some content for the body"}/>
+      <Body body={randomText}/>
       <hr/>
       <Footer upvote={props.upvote} downvote={props.downvote}/>
     </Col>
