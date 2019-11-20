@@ -58,7 +58,7 @@ export default function CreatePost() {
         />
       </Row>
       <Row style={styles.Body}>
-        Include all information that you deem necesarry for someone to answer your post (optional):
+        Include all information that you deem necessary for someone to answer your post (optional):
         <Input
         type="textarea"
         style={styles.Multiline}

@@ -17,7 +17,7 @@ const styles = {
 };
 
 export default function Header(props) {
-  // TODO: Need to fix centering to be centered with the image
+
   return (
     <Col>
         <UserAvatar />

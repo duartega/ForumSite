@@ -28,8 +28,8 @@ export default function MainPostPage(props) {
       />
       <hr/>
       <Body body={randomText}/>
-      <hr/>
-      <Footer upvote={props.upvote} downvote={props.downvote}/>
+      {props.body ? <hr/> : null}
+      <Footer upvote={0} downvote={0}/>
     </Col>
   )
 };
