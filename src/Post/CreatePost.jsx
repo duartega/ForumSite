@@ -5,8 +5,7 @@ import {
   Button,
   Input
 } from 'reactstrap';
-import { makeStyles } from '@material-ui/core/styles';
-
+import { AxiosCreatePost } from '../Axios/Axios';
 
 const styles = {
   Root: {
@@ -27,6 +26,8 @@ const styles = {
   }
 }
 
+
+
 export default function CreatePost() {
 
   const [Header, setHeader] = useState(null);
@@ -36,7 +37,11 @@ export default function CreatePost() {
     if (!Header) {
       alert('Please fill out the question field.');
     } else {
-      console.log("This will be submitted using axios.");
+      // TODO: Update so that the user id is the currently logged in user
+      AxiosCreatePost(Header, Body, 1);
+      setHeader(null);
+      setBody(null);
+      // TODO: Redirect to page for the post that was just created
     };
   };
 
