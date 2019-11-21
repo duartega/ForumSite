@@ -16,14 +16,13 @@ export default function SignUp() {
   return (
     <Container className="center-sign-up card-sign-up">
       <h2 className="sign-up-header">Sign-up</h2>
-      <Form className="orm">
+      <Form className="form">
         <Col>
           <FormGroup>
           <Label>First Name</Label>
           <Input
           type="text"
-          name="First Name"
-          id="FirstName"
+          id="Name"
           placeholder="Ex: John"
           maxLength="50"
           required
@@ -36,7 +35,6 @@ export default function SignUp() {
             <Label>Last Name</Label>
             <Input
             type="text"
-            name="Last Name"
             id="LastName"
             placeholder="Ex: Smith"
             maxLength="50"
@@ -50,7 +48,6 @@ export default function SignUp() {
             <Label>Email</Label>
             <Input
             type="email"
-            name="Email"
             id="Email"
             placeholder="Ex: JohnSmith@gmail.com"
             maxLength="100"
@@ -64,7 +61,6 @@ export default function SignUp() {
               <Label>Password</Label>
               <Input
                 type="password"
-                name="password"
                 id="password"
                 placeholder="********"
               />
