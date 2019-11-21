@@ -1,25 +1,37 @@
 import axios from '../ConfigAxios';
 
 export function AxiosCreatePost(Header, Body, User_Id) {
+  // Format the date so we can add to MySQL
   const date = getDate();
-  const HeaderOnly = `/post/create/${Header}/${User_Id}`;
+
+  // Differentiate between if they have a a body or not
+  // const HeaderOnly = `/post/create/${Header}/${User_Id}`;
   const HeaderandBody = `/post/create/${e(Header)}/${e(Body)}/${User_Id}/${date}`;
-  const method = Body ? HeaderandBody : HeaderOnly;
-  // /post/create?header='your header'&body='your body'
-  axios.post(method).then(result => {
-    alert("Your post has been added!")
-    console.log("Posted")
-  }).catch(function (error) {
-      // Output error
-      console.log(error);
-  });
+  // const method = Body ? HeaderandBody : HeaderOnly;
+
+  axios.post(HeaderandBody).then(result => {
+    if (result.status === 200) {
+      alert("Your post has been added!");
+    } else {
+      console.log("Return code: ", result.status);
+      alert("Something may have went wrong. Please try clicking submit one more time. Error Code: ", result.status);
+    }
+  }).catch(e => console.log(e));
+};
+
+
+export function AxiosGetPost(Post_Id, User_Id) {
+  axios.get(`/post/get/${User_Id}/${Post_Id}`).then( result => {
+    return result.data[0];
+  }).catch(e => console.log(e));
+  console.log("returning")
 };
 
 function getDate() {
   let d = new Date();
   let year = d.getFullYear();
-  let month = d.getMonth();
-  let day = d.getDay();
+  let month = d.getMonth() + 1; // Javascript months are 0-11
+  let day = d.getDate();
   let hour = d.getHours();
   let minute = d.getMinutes();
   let second = d.getSeconds();

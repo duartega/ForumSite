@@ -39,8 +39,9 @@ export default function CreatePost() {
     } else {
       // TODO: Update so that the user id is the currently logged in user
       AxiosCreatePost(Header, Body, 1);
-      setHeader(null);
-      setBody(null);
+      // Was going to set this to null for memory leaks but taking out for now as I test
+      // setHeader(null);
+      // setBody(null);
       // TODO: Redirect to page for the post that was just created
     };
   };
