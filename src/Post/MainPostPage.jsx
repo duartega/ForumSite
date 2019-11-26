@@ -24,11 +24,13 @@ export default function MainPostPage(props) {
   // AxiosGetPost(23, 1)
   const [header, seth] = React.useState(null);
   const [body, setb] = React.useState(null);
+  const [date, setDate] = React.useState(null);
 
   useEffect(() => {
     axios.get(`/post/get/${1}/${23}`).then( result => {
       seth( result.data[0]["post_header"]);
       setb( result.data[0]["post_body"]);
+      setDate( result.data[0]["time_date"]);
 
     }).catch(e => console.log(e));
     // Update the document title using the browser API
@@ -38,7 +40,7 @@ export default function MainPostPage(props) {
     <Col className="user-post-content" style={styles.Root}>
       <Header
       username={props.username}
-      date={props.date}
+      date={date}
       headerTitle={header}
       views={props.views}
       />

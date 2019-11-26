@@ -18,11 +18,12 @@ const styles = {
 
 export default function Header(props) {
 
+  // TODO: Format the date and time in a friendly format
   return (
     <Col>
         <UserAvatar />
         <p style={styles.UserName}>Gabriel Duarte</p>
-        <p style={styles.UserName}>10/19/2020</p>
+        <p style={styles.UserName}>{props.date}</p>
         <p style={styles.UserName}>Viewed: {props.views ? props.views + " " : "0 " } times</p>
         <h2 style={styles.Header}>{props.headerTitle}</h2>
         {/* <p style={styles.UserName}>{props.username}</p>
