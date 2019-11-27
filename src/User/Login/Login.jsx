@@ -1,21 +1,13 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+import { AuthContext } from '../../App';
 import axios from '../../ConfigAxios';
+import {Redirect} from 'react-router-dom';
 import {
   Container, Col, Form,
   FormGroup, Label, Input,
   Button,
 } from 'reactstrap';
 
-function login(Email, Password) {
-  axios.get(`/user/login/${Email}/${Password}`).then( result => {
-    // Check if any user data return, if it did then we know the login was successful
-    if (!result.data[0]) {
-      alert('Credentials incorrect. Please try again.')
-    } else {
-      alert('Login Successful.')
-    }
-  }).catch(e => console.log("Error: ", e));
-};
 
 function keyPress(e) {
     if (e.keyCode === 13) {
@@ -27,12 +19,39 @@ export default function Login() {
 
   const [Email, setEmail] = useState(null);
   const [Password, setPassword] = useState(null);
+  const [isValidated, setIsValidated] = useState(false);
+  const { dispatch } = React.useContext(AuthContext);
 
+  function login(Email, Password) {
+    axios.post(`/user/login/${Email}/${Password}`).then( result => {
+      // Check if any user data return, if it did then we know the login was successful
+      if (!result.data[0]) {
+        alert('Credentials incorrect. Please try again.')
+      } else {
+        alert('Login Successful.');
+        setIsValidated(true);
+        console.log(result.data[0]);
+        dispatch({
+          type: "LOGIN",
+          payload: result.data[0]
+      })
+      }
+    }).catch(e => console.log("Error: ", e));
+  };
+
+  // useEffect(() => {
+  //   console.log("State after update: ", state)
+  // });
 
   return(
     <Container className="center-sign-up card-sign-up" onSubmit={e => e.preventDefault() }>
       <h2 className="sign-up-header">Login</h2>
-
+        {isValidated ? (
+            <Redirect
+            to={{
+              pathname: "/Home",
+            }}/>
+        ) : ("")}
         <Form>
           <Col>
           <FormGroup>
@@ -42,7 +61,7 @@ export default function Login() {
               id="Email"
               required
               onChange={(text) => setEmail(text.target.value)}
-              placeholder="Ex: JohnSMith@gmail.com"
+              placeholder="Ex: JohnSmith@gmail.com"
             />
           </FormGroup>
           </Col>

@@ -1,25 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+// import NavBar from "./Components/Stateless/NavBar";
+import getThePage from './Navigation/getThePage';
+import { reducer } from './Context/Reducers/Index';
+import { Redirect } from 'react-router-dom';
+export const AuthContext = React.createContext();
 
 function App() {
+
+  const [state, dispatch] = React.useReducer(reducer, false);
+  const [Logout, setLogout] = React.useState(false);
+
+  // Change the default font to use Roboto
+  // const font = <link href="https://fonts.googleapis.com/css?family=Slabo+27px&display=swap" rel="stylesheet"/>;
+
+  function logout() {
+    dispatch({type: "LOGOUT"});
+    setLogout(!Logout);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContext.Provider
+    value={{
+      state,
+      dispatch
+    }}>
+        {/* <NavBar/> */}
+        {getThePage()}
+        {!Logout ? "" : (
+          <Redirect
+          to={{
+            pathname: "/",
+          }}/>
+        )}
+        <button onClick={() => logout()}>Logout</button>
+    </AuthContext.Provider>
   );
 }
 
