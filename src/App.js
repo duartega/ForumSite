@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 // import NavBar from "./Components/Stateless/NavBar";
 import getThePage from './Navigation/getThePage';
+import SideBar from './Components/SideBar';
+import { Row, Col } from 'reactstrap';
 import { reducer } from './Context/Reducers/Index';
 import { Redirect } from 'react-router-dom';
 export const AuthContext = React.createContext();
@@ -25,15 +27,15 @@ function App() {
       state,
       dispatch
     }}>
-        {/* <NavBar/> */}
+      <Row>
+        {localStorage.getItem("user_id") ?
+        <SideBar/>
+        : ""}
+        <Col>
         {getThePage()}
-        {!Logout ? "" : (
-          <Redirect
-          to={{
-            pathname: "/",
-          }}/>
-        )}
-        <button onClick={() => logout()}>Logout</button>
+        </Col>
+      </Row>
+        {/* <button onClick={() => logout()}>Logout</button> */}
     </AuthContext.Provider>
   );
 }

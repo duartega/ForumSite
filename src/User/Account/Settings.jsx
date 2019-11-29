@@ -4,7 +4,7 @@ import {
   FormGroup, Label, Input,
   Button,
 } from 'reactstrap';
-import Avatar from '../UserAvatar';
+import AvatarPic from '../UserAvatar';
 
 export default function AccountSettings() {
 
@@ -17,6 +17,7 @@ export default function AccountSettings() {
   const [Avatar, setAvatar] = useState(null);
   const [DarkMode, setDarkMode] = useState(false);
   const [FirstName, setFirstName] = useState(null);
+  const [LastName, setLastName] = useState(null);
 
   return (
     <Container className="center-settings">
@@ -27,7 +28,7 @@ export default function AccountSettings() {
 
       <Col>
           <FormGroup>
-            <Avatar onClick={() => console.log("Will change the picture and use file upload")}/>
+            <AvatarPic onClick={() => console.log("Will change the picture and use file upload")}/>
           </FormGroup>
         </Col>
 
@@ -88,6 +89,9 @@ export default function AccountSettings() {
             <Label>Dark Mode Toggle</Label>
 
           </FormGroup>
+        </Col>
+        <Col>
+          <Button className="btn-100" color="primary">Save</Button>
         </Col>
       </Form>
     </Container>
