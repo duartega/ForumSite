@@ -11,8 +11,8 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 
 export default function getThePage(isAuthenticated) {
 
-  console.log("isAuthenticated: ", isAuthenticated);
-  console.log("localStorage: ", localStorage.getItem("user_id"))
+  // console.log("isAuthenticated: ", isAuthenticated);
+  // console.log("localStorage: ", localStorage.getItem("user_id"))
   return(
       <Switch>
         {!localStorage.getItem("user_id") ? (

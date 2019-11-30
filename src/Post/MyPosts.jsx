@@ -44,7 +44,7 @@ export default function MyPosts(props) {
               />
               <hr style={{marginLeft: "100px", marginRight: "100px"}}/>
               <Body body={index["post_body"]}/>
-              {props.body ? <hr/> : null}
+              {props.body && <hr/>}
               <Footer upvote={0} downvote={0}/>
             </Card>
         ))

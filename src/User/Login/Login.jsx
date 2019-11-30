@@ -28,7 +28,7 @@ export default function Login() {
       if (!result.data[0]) {
         alert('Credentials incorrect. Please try again.')
       } else {
-        alert('Login Successful.');
+        // alert('Login Successful.');
         setIsValidated(true);
         dispatch({
           type: "LOGIN",
@@ -41,12 +41,7 @@ export default function Login() {
   return(
     <Container className="center-sign-up card-sign-up" onSubmit={e => e.preventDefault() }>
       <h2 className="sign-up-header">Login</h2>
-        {isValidated ? (
-            <Redirect
-            to={{
-              pathname: "/Home",
-            }}/>
-        ) : ("")}
+        {isValidated && <Redirect to={{ pathname: "/Home" }}/>}
         <Form>
           <Col>
           <FormGroup>
