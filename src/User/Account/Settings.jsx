@@ -21,7 +21,7 @@ export default function AccountSettings() {
 
   return (
     <Container className="center-settings">
-      <Label>Welcome, {FirstName}</Label>
+      <Label>Welcome, {localStorage.getItem('first_name')}</Label>
       <p>Below are your account settings.</p>
 
       <Form>
@@ -36,7 +36,7 @@ export default function AccountSettings() {
           <FormGroup>
             <Label>Email</Label>
             <Input
-            placeholder={Email}
+            placeholder={localStorage.getItem('email_address')}
             type="text"
             id="Email"
             maxLength="50"
@@ -62,7 +62,7 @@ export default function AccountSettings() {
           <FormGroup>
             <Label>First Name</Label>
             <Input
-            placeholder={FirstName}
+            placeholder={localStorage.getItem('first_name')}
             type="text"
             id="Name"
             maxLength="50"
@@ -75,7 +75,7 @@ export default function AccountSettings() {
           <FormGroup>
             <Label>Last Name</Label>
             <Input
-            placeholder={LastName}
+            placeholder={localStorage.getItem('last_name')}
             type="text"
             id="Name"
             maxLength="50"

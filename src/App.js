@@ -31,7 +31,7 @@ function App() {
         {localStorage.getItem("user_id") ?
         <SideBar/>
         : ""}
-        <Col>
+        <Col style={{paddingLeft: "0px"}}>
         {getThePage()}
         </Col>
       </Row>

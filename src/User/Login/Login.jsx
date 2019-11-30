@@ -30,7 +30,6 @@ export default function Login() {
       } else {
         alert('Login Successful.');
         setIsValidated(true);
-        console.log(result.data[0]);
         dispatch({
           type: "LOGIN",
           payload: result.data[0]
@@ -38,10 +37,6 @@ export default function Login() {
       }
     }).catch(e => console.log("Error: ", e));
   };
-
-  // useEffect(() => {
-  //   console.log("State after update: ", state)
-  // });
 
   return(
     <Container className="center-sign-up card-sign-up" onSubmit={e => e.preventDefault() }>

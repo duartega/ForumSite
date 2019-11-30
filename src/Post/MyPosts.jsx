@@ -18,18 +18,18 @@ const styles = {
 };
 
 
-export default function MainPostPage(props) {
+export default function MyPosts(props) {
 
   // Will change to post_id and user_id
   // AxiosGetPost(23, 1)
   const [res, setRes] = React.useState([]);
 
   useEffect(() => {
-    axios.get(`/post/getAllPosts`).then( result => {
+    axios.get(`/post/get/${localStorage.getItem('user_id')}`).then( result => {
       setRes(result.data);
     }).catch(e => console.log(e));
+    // Update the document title using the browser API
   }, []);
-
 
   return (
     <Col style={styles.Root}>
@@ -37,15 +37,15 @@ export default function MainPostPage(props) {
         res.map((index, idx) => (
           <Card key={idx} style={{marginBottom: "5px", marginTop: "5px", marginRight: "5px"}}>
             <Header
-                username={index["first_name"]}
+                username={props.username}
                 date={index["time_date"]}
                 headerTitle={index["post_header"]}
-                views={index["views"]}
+                views={props.views}
               />
               <hr style={{marginLeft: "100px", marginRight: "100px"}}/>
               <Body body={index["post_body"]}/>
-              {index["post_body"] ? <hr/> : null}
-              <Footer upvote={index["post_up_votes"]} downvote={index["post_down_votes"]}/>
+              {props.body ? <hr/> : null}
+              <Footer upvote={0} downvote={0}/>
             </Card>
         ))
       }

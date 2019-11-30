@@ -4,6 +4,7 @@ import MainPostPage from '../Post/MainPostPage';
 import Main from '../Components/MainScreen';
 import NewPost from '../Post/CreatePost';
 import Account from '../User/Account/Settings';
+import MyPosts from '../Post/MyPosts';
 
 // import ErrorPage from './ErrorPage';
 import { Route, Switch, Redirect } from 'react-router-dom';
@@ -24,7 +25,7 @@ export default function getThePage(isAuthenticated) {
             <MainPostPage />
           </Route>
           <Route exact path="/My Posts">
-            <MainPostPage />
+            <MyPosts />
           </Route>
           <Route exact path="/New Post">
             <NewPost />
@@ -34,6 +35,9 @@ export default function getThePage(isAuthenticated) {
           </Route>
           <Route exact path="/">
             <Landing />
+          </Route>
+          <Route path="*">
+            <MainPostPage />
           </Route>
           </Switch>
         )

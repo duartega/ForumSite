@@ -16,9 +16,9 @@ export default function SideBar(props) {
   }
 
   return (
-    <Col xs="1">
+    <Col xs="1" style={{backgroundColor: "#393e46"}}>
       { titles.map((index, idx) => (
-        <Row style={{marginLeft: "15px", marginTop: "15px"}}>
+        <Row key={idx} style={{marginLeft: "15px", marginTop: "15px"}}>
           <Link to={index}>{index}</Link>
         </Row>
       ))}
