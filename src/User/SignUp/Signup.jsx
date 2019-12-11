@@ -67,6 +67,7 @@ export default function SignUp() {
           <Input
           type="text"
           id="Name"
+          autoFocus
           placeholder="Ex: John"
           maxLength="50"
           required
@@ -106,6 +107,7 @@ export default function SignUp() {
             invalid
             type="Username"
             id="Username"
+            autoFocus
             placeholder="Ex: j.smith294"
             maxLength="50"
             required
@@ -133,6 +135,7 @@ export default function SignUp() {
             invalid
             type="email"
             id="Email"
+            autoFocus
             placeholder="Ex: JohnSmith@gmail.com"
             maxLength="100"
             required

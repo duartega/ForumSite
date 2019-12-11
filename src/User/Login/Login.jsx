@@ -58,6 +58,7 @@ export default function Login() {
             <Input
               type="email"
               id="Email"
+              autoFocus
               value={Email}
               required
               onChange={(text) => setEmail(text.target.value)}
@@ -68,6 +69,7 @@ export default function Login() {
             invalid
             type="email"
             id="Email"
+            autoFocus
             value={Email}
             required
             onChange={(text) => setEmail(text.target.value)}

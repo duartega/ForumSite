@@ -29,8 +29,8 @@ const NavbarComponent = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div>
-      <Navbar color="light" light expand="md">
+    <div style={{paddingBottom: "50px"}}>
+      <Navbar color="light" light expand="md" className="fixed-top">
         <NavbarBrand href="/">Something to Rant About</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>

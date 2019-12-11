@@ -24,10 +24,11 @@ function App() {
 
   return (
     <AuthContext.Provider value={{state, dispatch}}>
+       <Navbar loggedIn={localStorage.getItem("user_id")}/>
       <Row>
         {/* {localStorage.getItem("user_id") && <SideBar/>} */}
         <Col style={{paddingLeft: "0px"}}>
-        <Navbar loggedIn={localStorage.getItem("user_id")}/>
+       
         {getThePage()}
         </Col>
       </Row>
