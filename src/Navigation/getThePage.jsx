@@ -5,6 +5,7 @@ import Main from '../Components/MainScreen';
 import NewPost from '../Post/CreatePost';
 import Account from '../User/Account/Settings';
 import MyPosts from '../Post/MyPosts';
+import Signup from '../User/SignUp/Signup';
 
 // import ErrorPage from './ErrorPage';
 import { Route, Switch, Redirect } from 'react-router-dom';
@@ -17,7 +18,7 @@ export default function getThePage(isAuthenticated) {
       <Switch>
         {!localStorage.getItem("user_id") ? (
           <Route exact path="/">
-            <Landing />
+            <Signup />
           </Route>
         ) : (
           <Switch>
