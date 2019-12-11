@@ -17,9 +17,17 @@ export default function getThePage(isAuthenticated) {
   return(
       <Switch>
         {!localStorage.getItem("user_id") ? (
+          <Switch>
           <Route exact path="/">
+            <Landing />
+          </Route>
+          <Route exact path="/Login">
+            <Landing />
+          </Route>
+          <Route exact path="/Signup">
             <Signup />
           </Route>
+          </Switch>
         ) : (
           <Switch>
           <Route exact path="/Home">
@@ -33,6 +41,9 @@ export default function getThePage(isAuthenticated) {
           </Route>
           <Route exact path="/Account">
             <Account />
+          </Route>
+          <Route exact path="/Sign-up">
+            <Signup />
           </Route>
           <Route exact path="/">
             <Landing />

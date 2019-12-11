@@ -6,6 +6,7 @@ import SideBar from './Components/SideBar';
 import { Row, Col } from 'reactstrap';
 import { reducer } from './Context/Reducers/Index';
 import { Redirect } from 'react-router-dom';
+import Navbar from './Navigation/Navbar';
 export const AuthContext = React.createContext();
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
       <Row>
         {localStorage.getItem("user_id") && <SideBar/>}
         <Col style={{paddingLeft: "0px"}}>
+        <Navbar loggedIn={localStorage.getItem("user_id")}/>
         {getThePage()}
         </Col>
       </Row>
