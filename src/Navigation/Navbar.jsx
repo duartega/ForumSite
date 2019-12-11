@@ -35,17 +35,35 @@ const NavbarComponent = (props) => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            <NavItem>
               {
                 !props.loggedIn ?
-                <NavLink href="/Login">Login</NavLink>
+                <>
+                  <NavItem>
+                    <NavLink href="/Login">Login</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="/Signup">Sign-up</NavLink>
+                  </NavItem>
+                </>
                 :
-                <NavLink href="/" onClick={() => handleLogout()}>Logout</NavLink>
+                <>
+                  <NavItem>
+                    <NavLink href="/Home">Home</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="/New Post">New Post</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="/My Posts">My Posts</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="/Account">Account</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="/" onClick={() => handleLogout()}>Logout</NavLink>
+                  </NavItem>
+                </>
               }
-            </NavItem>
-            <NavItem>
-              <NavLink href="/Signup">Sign-up</NavLink>
-            </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 Options

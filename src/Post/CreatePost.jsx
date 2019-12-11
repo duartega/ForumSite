@@ -38,7 +38,7 @@ export default function CreatePost() {
       alert('Please fill out the question field.');
     } else {
       // TODO: Update so that the user id is the currently logged in user
-      AxiosCreatePost(Header, Body, 1);
+      AxiosCreatePost(Header, Body, localStorage.getItem("user_id"));
       // Was going to set this to null for memory leaks but taking out for now as I test
       // setHeader(null);
       // setBody(null);

@@ -25,7 +25,7 @@ function App() {
   return (
     <AuthContext.Provider value={{state, dispatch}}>
       <Row>
-        {localStorage.getItem("user_id") && <SideBar/>}
+        {/* {localStorage.getItem("user_id") && <SideBar/>} */}
         <Col style={{paddingLeft: "0px"}}>
         <Navbar loggedIn={localStorage.getItem("user_id")}/>
         {getThePage()}

@@ -12,8 +12,10 @@ import {
 
 const styles = {
   Root: {
-  height: "95vh",
-  backgroundColor: "#515585"
+  // height: "95vh",
+  backgroundColor: "#515585",
+  margin: "10px",
+  padding: "15px"
   }
 };
 
