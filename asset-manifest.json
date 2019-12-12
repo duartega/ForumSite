@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/Forum-Site/static/css/main.31e3e99b.chunk.css",
-    "main.js": "/Forum-Site/static/js/main.5032a776.chunk.js",
-    "main.js.map": "/Forum-Site/static/js/main.5032a776.chunk.js.map",
-    "runtime-main.js": "/Forum-Site/static/js/runtime-main.21b101be.js",
-    "runtime-main.js.map": "/Forum-Site/static/js/runtime-main.21b101be.js.map",
-    "static/css/2.b0bb7f2c.chunk.css": "/Forum-Site/static/css/2.b0bb7f2c.chunk.css",
-    "static/js/2.80c8ada7.chunk.js": "/Forum-Site/static/js/2.80c8ada7.chunk.js",
-    "static/js/2.80c8ada7.chunk.js.map": "/Forum-Site/static/js/2.80c8ada7.chunk.js.map",
-    "index.html": "/Forum-Site/index.html",
-    "precache-manifest.aebcaf946c821efb795a96c08dc2e986.js": "/Forum-Site/precache-manifest.aebcaf946c821efb795a96c08dc2e986.js",
-    "service-worker.js": "/Forum-Site/service-worker.js",
-    "static/css/2.b0bb7f2c.chunk.css.map": "/Forum-Site/static/css/2.b0bb7f2c.chunk.css.map",
-    "static/css/main.31e3e99b.chunk.css.map": "/Forum-Site/static/css/main.31e3e99b.chunk.css.map",
-    "static/media/TestImage.jpg": "/Forum-Site/static/media/TestImage.13988554.jpg"
+    "main.css": "/ForumSite/static/css/main.31e3e99b.chunk.css",
+    "main.js": "/ForumSite/static/js/main.fea7780d.chunk.js",
+    "main.js.map": "/ForumSite/static/js/main.fea7780d.chunk.js.map",
+    "runtime-main.js": "/ForumSite/static/js/runtime-main.4115023c.js",
+    "runtime-main.js.map": "/ForumSite/static/js/runtime-main.4115023c.js.map",
+    "static/css/2.b0bb7f2c.chunk.css": "/ForumSite/static/css/2.b0bb7f2c.chunk.css",
+    "static/js/2.80c8ada7.chunk.js": "/ForumSite/static/js/2.80c8ada7.chunk.js",
+    "static/js/2.80c8ada7.chunk.js.map": "/ForumSite/static/js/2.80c8ada7.chunk.js.map",
+    "index.html": "/ForumSite/index.html",
+    "precache-manifest.2584571d3852ea728be0c26f3cc7b4d3.js": "/ForumSite/precache-manifest.2584571d3852ea728be0c26f3cc7b4d3.js",
+    "service-worker.js": "/ForumSite/service-worker.js",
+    "static/css/2.b0bb7f2c.chunk.css.map": "/ForumSite/static/css/2.b0bb7f2c.chunk.css.map",
+    "static/css/main.31e3e99b.chunk.css.map": "/ForumSite/static/css/main.31e3e99b.chunk.css.map",
+    "static/media/TestImage.jpg": "/ForumSite/static/media/TestImage.13988554.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.21b101be.js",
+    "static/js/runtime-main.4115023c.js",
     "static/css/2.b0bb7f2c.chunk.css",
     "static/js/2.80c8ada7.chunk.js",
     "static/css/main.31e3e99b.chunk.css",
-    "static/js/main.5032a776.chunk.js"
+    "static/js/main.fea7780d.chunk.js"
   ]
 }
