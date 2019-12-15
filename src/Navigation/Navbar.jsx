@@ -31,7 +31,7 @@ const NavbarComponent = (props) => {
   return (
     <div style={{paddingBottom: "50px"}}>
       <Navbar color="light" light expand="md" className="fixed-top">
-        <NavbarBrand href="/">Something to Rant About</NavbarBrand>
+        <NavbarBrand href="/">Something to Protest About</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
