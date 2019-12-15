@@ -18,13 +18,36 @@ function keyPress(e) {
 export default function Login() {
 
   const [Email, setEmail] = useState(null);
+  const [EmptyEmail, setEmptyEmail] = useState(false);
   const [Password, setPassword] = useState(null);
+  const [EmptyPassword, setEmptyPassword] = useState(false);
   const [isValidated, setIsValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [incorrectLogin, setIncorrectLogin] = useState(false);
   const { dispatch } = React.useContext(AuthContext);
 
+  function checkFields() {
+    if (!Email) {
+      setEmptyEmail(true);
+    } else if (Email) {
+      setEmptyEmail(false);
+    }
+
+    if (!Password) {
+      setEmptyPassword(true);
+    } else if (Password) {
+      setEmptyPassword(false);
+    }
+    return true;
+  }
+
   function login(Email, Password) {
+
+    if (checkFields() === true) {
+      return;
+    }
+
+
     setIsLoading(true);
     axios.post(`/user/login/${Email}/${Password}`).then( result => {
       // Check if any user data return, if it did then we know the login was successful
@@ -54,29 +77,18 @@ export default function Login() {
           <Col>
           <FormGroup>
             <Label>Email</Label>
-            {!incorrectLogin ?
             <Input
               type="email"
               id="Email"
+              invalid={EmptyEmail}
               autoFocus
               value={Email}
               required
               onChange={(text) => setEmail(text.target.value)}
               placeholder="Ex: JohnSmith@gmail.com"
             />
-            :
-            <Input
-            invalid
-            type="email"
-            id="Email"
-            autoFocus
-            value={Email}
-            required
-            onChange={(text) => setEmail(text.target.value)}
-            placeholder="Ex: JohnSmith@gmail.com"
-            />
-            }
           {!incorrectLogin ? "" : <FormFeedback>Email/Password incorrect. Please try again.</FormFeedback>}
+          {EmptyEmail && <FormFeedback>Please enter your email.</FormFeedback>}
           </FormGroup>
           </Col>
         </Form>
@@ -85,25 +97,16 @@ export default function Login() {
           <Col>
           <FormGroup>
             <Label>Password</Label>
-            {!incorrectLogin ?
             <Input
             type="password"
             value={Password}
+            invalid={EmptyPassword}
             required
             onChange={text => setPassword(text.target.value)}
             placeholder="********"
             />
-            :
-            <Input
-            invalid
-            type="password"
-            value={Password}
-            required
-            onChange={text => setPassword(text.target.value)}
-            placeholder="********"
-            />
-            }
           {!incorrectLogin ? "" : <FormFeedback>Email/Password incorrect. Please try again.</FormFeedback>}
+          {EmptyPassword && <FormFeedback>Please enter your password.</FormFeedback>}
             </FormGroup>
           </Col>
           <Col>

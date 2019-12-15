@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowDropUp, ArrowDropDown } from '@material-ui/icons';
+import CreateComment from '../Comments/CreateComment';
+
 
 const styles ={
   comment: {
@@ -15,6 +17,7 @@ export default function Footer(props) {
   const [UpVote, setUpVote] = useState(props.upvote);
   const [DownVote, setDownVote] = useState(props.downvote);
   const [Vote, setVote] = useState(null);
+  const [createComment, setcreateComment] = useState(false);
 
   function handleVote(vote) {
     if (vote === "up") {
@@ -66,8 +69,13 @@ export default function Footer(props) {
       {DownVote ? DownVote : "0"}
       <p
       style={styles.comment}
-      onClick={() => console.log("This will make the comment module popout from under the current post")}
-      >Add Comment</p>
+      onClick={() => setcreateComment(!createComment)}
+      >
+        {
+          !createComment ? "Add Comment" : "Cancel Comment"
+        }
+      </p>
+      {createComment && <CreateComment />}
     </div>
   )
 }

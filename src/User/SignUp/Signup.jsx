@@ -7,22 +7,65 @@ import {
   FormGroup, Label, Input,
   Button, FormFeedback
 } from 'reactstrap';
+import { useScrollTrigger } from '@material-ui/core';
 
 export default function SignUp() {
 
   const [FirstName, setFirstName] = useState(null);
+  const [EmptyFirstName, setEmptyFirstName] = useState(false);
   const [LastName, setLastName] = useState(null);
+  const [EmptyLastName, setEmptyLastName] = useState(false);
   const [UserName, setUserName] = useState(null);
+  const [EmptyUserName, setEmptyUserName] = useState(false);
   const [Email, setEmail] = useState(null);
+  const [EmptyEmail, setEmptyEmail] = useState(false);
   const [Password, setPassword] = useState(null);
   const [User_ID, setUser_ID] = useState(null);
   const [UsernameTaken, setUsernameTaken] = useState(false);
   const [EmailTaken, setEmailTaken] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isValidated, setIsValidated] = useState(false);
+  const [EmptyPassword, setEmptyPassword] = useState(false);
   const { dispatch } = React.useContext(AuthContext);
 
+  function checkFields() {
+    if (!Password) {
+      setEmptyPassword(true);
+    } else if (Password) {
+      setEmptyPassword(false);
+    }
+
+    if (!FirstName) {
+      setEmptyFirstName(true);
+    } else if (FirstName) {
+      setEmptyFirstName(false);
+    }
+
+    if (!LastName) {
+      setEmptyLastName(true);
+    } else if (LastName) {
+      setEmptyLastName(false);
+    }
+
+    if (!Email) {
+      setEmptyEmail(true);
+    } else if (EmptyEmail) {
+      setEmptyEmail(false);
+    }
+
+    if (!UserName) {
+      setEmptyUserName(true);
+    } else if (UserName) {
+      setEmptyUserName(false);
+    }
+    return true;
+  }
+
   function signup() {
+    if (checkFields() === true) {
+      return;
+    }
+
     setIsLoading(true);
     axios.get(`/user/checkUsername/${UserName}`).then ( result => {
       if (!result.data[0]) {
@@ -65,6 +108,7 @@ export default function SignUp() {
           <FormGroup>
           <Label>First Name</Label>
           <Input
+          invalid={EmptyFirstName}
           type="text"
           id="Name"
           autoFocus
@@ -73,6 +117,7 @@ export default function SignUp() {
           required
           onChange={(text) => setFirstName(text.target.value)}
           />
+          {EmptyFirstName && <FormFeedback>Please enter a First Name.</FormFeedback>}
           </FormGroup>
         </Col>
 
@@ -80,6 +125,7 @@ export default function SignUp() {
           <FormGroup>
             <Label>Last Name</Label>
             <Input
+            invalid={EmptyLastName}
             type="text"
             id="LastName"
             placeholder="Ex: Smith"
@@ -87,24 +133,15 @@ export default function SignUp() {
             required
             onChange={(text) => setLastName(text.target.value)}
             />
+            {EmptyLastName && <FormFeedback>Please enter a Last Name.</FormFeedback>}
           </FormGroup>
         </Col>
 
         <Col>
           <FormGroup>
             <Label>Username</Label>
-            {!UsernameTaken ?
             <Input
-            type="Username"
-            id="Username"
-            placeholder="Ex: j.smith294"
-            maxLength="50"
-            required
-            onChange={(text) => setUserName(text.target.value)}
-            />
-            :
-            <Input
-            invalid
+            invalid={EmptyUserName}
             type="Username"
             id="Username"
             autoFocus
@@ -113,26 +150,16 @@ export default function SignUp() {
             required
             onChange={(text) => setUserName(text.target.value)}
             />
-            }
             {UsernameTaken && <FormFeedback>Username is already taken.</FormFeedback>}
+            {EmptyUserName && <FormFeedback>Please enter an email.</FormFeedback>}
           </FormGroup>
         </Col>
 
         <Col>
           <FormGroup>
             <Label>Email</Label>
-            {!EmailTaken ?
             <Input
-            type="email"
-            id="Email"
-            placeholder="Ex: JohnSmith@gmail.com"
-            maxLength="100"
-            required
-            onChange={(text) => setEmail(text.target.value)}
-            />
-            :
-            <Input
-            invalid
+            invalid={EmptyEmail}
             type="email"
             id="Email"
             autoFocus
@@ -141,8 +168,8 @@ export default function SignUp() {
             required
             onChange={(text) => setEmail(text.target.value)}
             />
-            }
             {EmailTaken && <FormFeedback>Email already in use.</FormFeedback>}
+            {EmptyEmail && <FormFeedback>Please enter a password.</FormFeedback>}
           </FormGroup>
         </Col>
 
@@ -150,11 +177,14 @@ export default function SignUp() {
             <FormGroup>
               <Label>Password</Label>
               <Input
+                invalid={EmptyPassword}
+                required
                 type="password"
                 id="password"
                 placeholder="********"
                 onChange={(text) => setPassword(text.target.value)}
             />
+            {EmptyPassword && <FormFeedback>Please enter a password.</FormFeedback>}
             </FormGroup>
           </Col>
           <Col>

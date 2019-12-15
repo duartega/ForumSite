@@ -60,11 +60,8 @@ export default function MyPosts(props) {
               {props.body && <hr/>}
               <Footer upvote={0} downvote={0}/>
            </Card>
-           
-    
-                    <Comment data={Comments} />
-               
-           
+            <Comment data={Comments} />
+            
     </Col>
   )
 };
