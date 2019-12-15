@@ -6,9 +6,10 @@ import NewPost from '../Post/CreatePost';
 import Account from '../User/Account/Settings';
 import MyPosts from '../Post/MyPosts';
 import Signup from '../User/SignUp/Signup';
+import SinglePost from '../Post/SinglePost';
 
 // import ErrorPage from './ErrorPage';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useParams } from 'react-router-dom';
 
 export default function getThePage(isAuthenticated) {
 
@@ -44,6 +45,9 @@ export default function getThePage(isAuthenticated) {
           </Route>
           <Route exact path="/Sign-up">
             <Signup />
+          </Route>
+          <Route exact path="/Post/:post_id">
+            <SinglePost />
           </Route>
           <Route exact path="/">
             <Landing />

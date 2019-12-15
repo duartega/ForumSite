@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col } from 'reactstrap';
 import UserAvatar from '../User/UserAvatar';
+import Moment from 'react-moment';
 
 const styles = {
   Inner: {
@@ -23,8 +24,8 @@ export default function Header(props) {
     <Col style={{paddingTop: "10px"}}>
         <UserAvatar />
         <p style={styles.UserName}>{props.username}</p>
-        <p style={styles.UserName}>{props.date}</p>
+        <p style={styles.UserName}>{<Moment format="MM/DD/YYYY" >{props.date}</Moment>}</p>
         <p style={styles.UserName}>Viewed: {props.views ? props.views + " " : "0 " } times</p>
-        <h2 style={styles.Header}>{props.headerTitle}</h2>
+        {props.headerTitle && <h2 style={styles.Header}>{props.headerTitle}</h2>}
       </Col>
   )};
