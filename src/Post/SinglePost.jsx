@@ -60,11 +60,11 @@ export default function MyPosts(props) {
               {props.body && <hr/>}
               <Footer upvote={0} downvote={0}/>
            </Card>
-           {
-               Comments.map((index, idx) => (
+           
+    
                     <Comment data={Comments} />
-               ))
-           } 
+               
+           
     </Col>
   )
 };
