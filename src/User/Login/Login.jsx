@@ -29,6 +29,7 @@ export default function Login() {
   function checkFields() {
     if (!Email) {
       setEmptyEmail(true);
+      setIncorrectLogin(false);
     } else if (Email) {
       setEmptyEmail(false);
     }
@@ -38,16 +39,19 @@ export default function Login() {
     } else if (Password) {
       setEmptyPassword(false);
     }
-    return true;
+
+    return;
+    
   }
 
   function login(Email, Password) {
 
-    if (checkFields() === true) {
+    checkFields();
+
+    if (!Email || !Password) {
       return;
     }
-
-
+    
     setIsLoading(true);
     axios.post(`/user/login/${Email}/${Password}`).then( result => {
       // Check if any user data return, if it did then we know the login was successful
@@ -69,6 +73,10 @@ export default function Login() {
     }).catch(e => console.log("Error: ", e));
   };
 
+  function inputCheck() {
+    if (EmptyEmail === true || incorrectLogin === true) return true;
+  }
+
   return(
     <Container className="center-sign-up card-sign-up" onSubmit={e => e.preventDefault() }>
       <h2 className="sign-up-header">Login</h2>
@@ -80,7 +88,7 @@ export default function Login() {
             <Input
               type="email"
               id="Email"
-              invalid={EmptyEmail}
+              invalid={inputCheck()}
               autoFocus
               value={Email}
               required
@@ -100,7 +108,7 @@ export default function Login() {
             <Input
             type="password"
             value={Password}
-            invalid={EmptyPassword}
+            invalid={EmptyPassword || incorrectLogin}
             required
             onChange={text => setPassword(text.target.value)}
             placeholder="********"

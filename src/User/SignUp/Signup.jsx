@@ -58,11 +58,14 @@ export default function SignUp() {
     } else if (UserName) {
       setEmptyUserName(false);
     }
-    return true;
+    
+    return;
   }
 
   function signup() {
-    if (checkFields() === true) {
+    checkFields();
+
+    if (!FirstName || !LastName || !Email || !Password || !UserName) {
       return;
     }
 
