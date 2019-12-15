@@ -64,6 +64,7 @@ const NavbarComponent = (props) => {
                   </NavItem>
                 </>
               }
+              {props.loggedin && 
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 Options
@@ -81,6 +82,7 @@ const NavbarComponent = (props) => {
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
+              }
           </Nav>
           {/* <NavbarText>Simple Text</NavbarText> */}
         </Collapse>
