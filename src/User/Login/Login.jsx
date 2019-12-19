@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { AuthContext } from '../../App';
 import axios from '../../ConfigAxios';
 import {Redirect} from 'react-router-dom';
+import JWT from 'jsonwebtoken';
+
+import '../../Config';
+
+
 import {
   Container, Col, Form,
   FormGroup, Label, Input,
@@ -10,6 +15,7 @@ import {
 
 
 export default function Login() {
+
 
   const [Email, setEmail] = useState(null);
   const [EmptyEmail, setEmptyEmail] = useState(false);
@@ -60,6 +66,15 @@ export default function Login() {
       if (result.data[0]) {
         setIsValidated(true);
         setIsLoading(false);
+        const options = {
+          expiresIn: '1h',
+          issuer: 'https://ForumSite.com'
+        };
+        console.log(result.data)
+        let t = `-Z^0~2!aa"+i<Z+63+G:tWbjrvTk#=b<zFT/j9"oOKh=vu-[lr|khu]vUZC*PJ48FylS12behtLLzTMDp7Wzd23e7h2xRiZGDvw3yySfT1GmYdBRxgP8HrDiqbcE48`;
+        console.log(process.env.JWT_SECRET, process.env)
+        let token_validation = JWT.verify(result.data, t, options);
+        console.log(token_validation);
         dispatch({
           type: "LOGIN",
           payload: result.data[0]
