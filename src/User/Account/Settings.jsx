@@ -64,7 +64,7 @@ export default function AccountSettings() {
             <Input
             placeholder={localStorage.getItem('first_name').replace(/['"]+/g, '')}
             type="text"
-            id="Name"
+            id="First Name"
             maxLength="50"
             required
             />
@@ -77,7 +77,7 @@ export default function AccountSettings() {
             <Input
             placeholder={localStorage.getItem('last_name').replace(/['"]+/g, '')}
             type="text"
-            id="Name"
+            id="Last Name"
             maxLength="50"
             required
             />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { AuthContext } from '../../App';
 import axios from '../../ConfigAxios';
 import {Redirect} from 'react-router-dom';
@@ -8,12 +8,6 @@ import {
   Button, FormFeedback
 } from 'reactstrap';
 
-
-function keyPress(e) {
-    if (e.keyCode === 13) {
-      console.log("Enter key was pressed", e.target.value)
-    }
-}
 
 export default function Login() {
 
@@ -55,14 +49,15 @@ export default function Login() {
     setIsLoading(true);
     axios.post(`/user/login/${Email}/${Password}`).then( result => {
       // Check if any user data return, if it did then we know the login was successful
-      if (!result.data[0]) {
-        // alert('Credentials incorrect. Please try again.')
-        setIsLoading(false);
-        setIncorrectLogin(true);
-        setEmail("");
-        setPassword("");
-      } else {
+      // if (!result.data[0]) {
+      //   // alert('Credentials incorrect. Please try again.')
+      //   setIsLoading(false);
+      //   setIncorrectLogin(true);
+      //   setEmail("");
+      //   setPassword("");
+      // } else {
         // alert('Login Successful.');
+      if (result.data[0]) {
         setIsValidated(true);
         setIsLoading(false);
         dispatch({
@@ -70,7 +65,24 @@ export default function Login() {
           payload: result.data[0]
       })
       }
-    }).catch(e => console.log("Error: ", e));
+    }).catch(function (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        // console.log(error.response.data);
+        console.log(error.response.status);
+        if (error.response.status === 401) {
+          setIsLoading(false);
+          setIncorrectLogin(true);
+          setEmail("");
+          setPassword("");
+        }
+        // console.log(error.response.headers);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
+    });
   };
 
   function inputCheck() {

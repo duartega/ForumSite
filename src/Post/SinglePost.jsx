@@ -7,7 +7,6 @@ import { Card } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
 import Comment from '../Comments/Comment';
 import {
-  Row,
   Col,
 } from 'reactstrap';
 

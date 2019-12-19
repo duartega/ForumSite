@@ -7,7 +7,6 @@ import {
   FormGroup, Label, Input,
   Button, FormFeedback
 } from 'reactstrap';
-import { useScrollTrigger } from '@material-ui/core';
 
 export default function SignUp() {
 
