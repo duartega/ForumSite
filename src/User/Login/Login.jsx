@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { AuthContext } from '../../App';
 import axios from '../../ConfigAxios';
 import {Redirect} from 'react-router-dom';
+import JWT from 'jsonwebtoken';
+
+import '../../Config';
+
+
 import {
   Container, Col, Form,
   FormGroup, Label, Input,
@@ -11,6 +16,7 @@ import {
 
 export default function Login() {
   var jwt_decode = require('jwt-decode');
+
 
 
   const [Email, setEmail] = useState(null);
