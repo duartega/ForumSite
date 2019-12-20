@@ -8,7 +8,6 @@ import {Redirect} from 'react-router-dom';
 
 
 import {
-  Row,
   Col,
 } from 'reactstrap';
 
