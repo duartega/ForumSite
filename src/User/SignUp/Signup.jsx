@@ -27,6 +27,7 @@ export default function SignUp() {
   const [EmptyPassword, setEmptyPassword] = useState(false);
   const { dispatch } = React.useContext(AuthContext);
 
+
   function checkFields() {
     if (!Password) {
       setEmptyPassword(true);
@@ -69,8 +70,8 @@ export default function SignUp() {
     }
 
     setIsLoading(true);
-    console.log("USERNAME: ", UserName)
     axios.get(`/user/checkUsername/${UserName}`).then ( result => {
+      console.log(result.data)
       if (result.data.unused) {
         setUsernameTaken(false);
         axios.get(`/user/checkEmail/${encodeURIComponent(Email)}`).then ( result => {
@@ -86,7 +87,6 @@ export default function SignUp() {
                   type: "LOGIN",
                   payload: payload
               })
-                console.log("Account should have been created");
               }).catch(e => console.log("Error: ", e));
             }).catch( e => console.log("Error: ", e));
               } else {
@@ -96,6 +96,8 @@ export default function SignUp() {
               }
         });
       } else {
+        console.log(result.data)
+
         setUsernameTaken(true);
         setUserName("");
         setIsLoading(false);
@@ -146,10 +148,8 @@ export default function SignUp() {
           <FormGroup>
             <Label>Username</Label>
             <Input
-            invalid={EmptyUserName || UsernameTaken}
             type="Username"
             id="Username"
-            autoFocus
             placeholder="Ex: j.smith294"
             maxLength="50"
             required
@@ -167,7 +167,6 @@ export default function SignUp() {
             invalid={EmptyEmail || EmailTaken}
             type="email"
             id="Email"
-            autoFocus
             placeholder="Ex: JohnSmith@gmail.com"
             maxLength="100"
             required

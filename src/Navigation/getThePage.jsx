@@ -7,6 +7,7 @@ import Account from '../User/Account/Settings';
 import MyPosts from '../Post/MyPosts';
 import Signup from '../User/SignUp/Signup';
 import SinglePost from '../Post/SinglePost';
+import ForgotAccount from '../User/Account/Forgot'
 
 // import ErrorPage from './ErrorPage';
 import { Route, Switch, Redirect, useParams } from 'react-router-dom';
@@ -27,6 +28,9 @@ export default function getThePage(isAuthenticated) {
           </Route>
           <Route exact path="/Signup">
             <Signup />
+          </Route>
+          <Route exact path="/Forgot_account">
+            <ForgotAccount />
           </Route>
           </Switch>
         ) : (

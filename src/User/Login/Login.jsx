@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { AuthContext } from '../../App';
 import axios from '../../ConfigAxios';
 import {Redirect} from 'react-router-dom';
-import JWT from 'jsonwebtoken';
 
 import '../../Config';
 
@@ -10,15 +9,13 @@ import '../../Config';
 import {
   Container, Col, Form,
   FormGroup, Label, Input,
-  Button, FormFeedback
+  Button, FormFeedback, Row, NavLink
 } from 'reactstrap';
 
 
 export default function Login() {
+
   var jwt_decode = require('jwt-decode');
-
-
-
   const [Email, setEmail] = useState(null);
   const [EmptyEmail, setEmptyEmail] = useState(false);
   const [Password, setPassword] = useState(null);
@@ -57,20 +54,11 @@ export default function Login() {
     setIsLoading(true);
     axios.post(`/user/login/${Email}/${Password}`).then( result => {
       // Check if any user data return, if it did then we know the login was successful
-      // if (!result.data[0]) {
-      //   // alert('Credentials incorrect. Please try again.')
-      //   setIsLoading(false);
-      //   setIncorrectLogin(true);
-      //   setEmail("");
-      //   setPassword("");
-      // } else {
-        // alert('Login Successful.');
+
       if (result.data[0]) {
         setIsValidated(true);
         setIsLoading(false);
         var decoded = jwt_decode(result.data)
-        console.log(result.data)
-        console.log(decoded.data)
         dispatch({
           type: "LOGIN",
           payload: decoded.data
@@ -80,18 +68,15 @@ export default function Login() {
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
-        // console.log(error.response.data);
-        console.log(error.response.status);
-        if (error.response.status === 401) {
+        if (error.response.status === 404 || 401) {
           setIsLoading(false);
           setIncorrectLogin(true);
           setEmail("");
           setPassword("");
         }
-        // console.log(error.response.headers);
       } else {
         // Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message);
+        console.log('Error: ', error.message);
       }
     });
   };
@@ -148,6 +133,14 @@ export default function Login() {
             disabled={isLoading}
             >{isLoading ? 'Loading...' : 'Submit'}</Button>
           </Col>
+          <Row>
+          <Col style={{textAlign: "center"}}>
+          <NavLink href="/Signup">Don't have an account?</NavLink>&nbsp;
+          </Col>
+          <Col style={{textAlign: "center"}}>
+            <NavLink href="/Forgot_account">Forgot Account?</NavLink> &nbsp;
+          </Col>
+          </Row>
         </Form>
     </Container>
   )
