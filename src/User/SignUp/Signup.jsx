@@ -69,10 +69,12 @@ export default function SignUp() {
     }
 
     setIsLoading(true);
+    console.log("USERNAME: ", UserName)
     axios.get(`/user/checkUsername/${UserName}`).then ( result => {
-      if (!result.data[0]) {
+      if (result.data.unused) {
+        setUsernameTaken(false);
         axios.get(`/user/checkEmail/${encodeURIComponent(Email)}`).then ( result => {
-          if (!result.data[0]) {
+          if (result.data.unused) {
             axios.post(`/user/signup/${UserName}/${Password}`).then ( result => {
               let id = result.data.insertId;
               // If the creation was sucessful, continue to add the rest of the data
@@ -97,6 +99,7 @@ export default function SignUp() {
         setUsernameTaken(true);
         setUserName("");
         setIsLoading(false);
+        return;
       }
     });
   };
@@ -143,7 +146,7 @@ export default function SignUp() {
           <FormGroup>
             <Label>Username</Label>
             <Input
-            invalid={EmptyUserName}
+            invalid={EmptyUserName || UsernameTaken}
             type="Username"
             id="Username"
             autoFocus
@@ -153,7 +156,7 @@ export default function SignUp() {
             onChange={(text) => setUserName(text.target.value)}
             />
             {UsernameTaken && <FormFeedback>Username is already taken.</FormFeedback>}
-            {EmptyUserName && <FormFeedback>Please enter an email.</FormFeedback>}
+            {EmptyUserName && (!UsernameTaken && <FormFeedback>Please enter an email.</FormFeedback>)}
           </FormGroup>
         </Col>
 
@@ -161,7 +164,7 @@ export default function SignUp() {
           <FormGroup>
             <Label>Email</Label>
             <Input
-            invalid={EmptyEmail}
+            invalid={EmptyEmail || EmailTaken}
             type="email"
             id="Email"
             autoFocus
@@ -171,7 +174,7 @@ export default function SignUp() {
             onChange={(text) => setEmail(text.target.value)}
             />
             {EmailTaken && <FormFeedback>Email already in use.</FormFeedback>}
-            {EmptyEmail && <FormFeedback>Please enter a password.</FormFeedback>}
+            {EmptyEmail && (!EmailTaken &&  <FormFeedback>Please enter a password.</FormFeedback>)}
           </FormGroup>
         </Col>
 
