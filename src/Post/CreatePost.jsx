@@ -6,6 +6,9 @@ import {
   Input
 } from 'reactstrap';
 import { AxiosCreatePost } from '../Axios/Axios';
+import {Redirect} from "react-router-dom";
+import {Card} from "@material-ui/core";
+import axios from "../ConfigAxios";
 
 const styles = {
   Root: {
@@ -32,17 +35,35 @@ export default function CreatePost() {
 
   const [Header, setHeader] = useState(null);
   const [Body, setBody] = useState(null);
+  const [Redir, setRedirect] = React.useState(false);
+  const [PostID, setPostID] = React.useState(null);
 
   function CheckInput() {
     if (!Header) {
       alert('Please fill out the question field.');
     } else {
       // TODO: Update so that the user id is the currently logged in user
+        let User_id = localStorage.getItem("user_id");
       AxiosCreatePost(Header, Body, localStorage.getItem("user_id"));
+        let post_id = localStorage.getItem('RecentlyCreatedPostID');
+      axios.get(`/post/getRecentPost/${User_id}/`,
+          {
+            headers: {
+              "Authorization": "Bearer " + localStorage.getItem('JWT')
+            },
+            user_id: User_id,
+          }
+      ).then( result => {
+          // TODO: Redirect to page for the post that was just created
+          // console.log(result.data)
+          setPostID(result.data[0].p_id);
+          setRedirect(true);
+      }).catch(e => console.log(e));
       // Was going to set this to null for memory leaks but taking out for now as I test
       // setHeader(null);
       // setBody(null);
-      // TODO: Redirect to page for the post that was just created
+
+      // {Redir && <Redirect to={{ pathname: "/Post/" +  PostID}}/>}
     };
   };
 
@@ -52,6 +73,7 @@ export default function CreatePost() {
 
   return(
     <Col style={styles.Root}>
+      {Redir && <Redirect to={{ pathname: "/Post/" +  PostID}}/>}
       <Row style={styles.Root}>
         <h4>Title</h4>
         <Input

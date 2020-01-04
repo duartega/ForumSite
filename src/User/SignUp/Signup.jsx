@@ -19,7 +19,6 @@ export default function SignUp() {
   const [Email, setEmail] = useState(null);
   const [EmptyEmail, setEmptyEmail] = useState(false);
   const [Password, setPassword] = useState(null);
-  const [User_ID, setUser_ID] = useState(null);
   const [UsernameTaken, setUsernameTaken] = useState(false);
   const [EmailTaken, setEmailTaken] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -81,23 +80,15 @@ export default function SignUp() {
               axios.get(`/user/user_id/${UserName}`).then(result => {
                 user_id_value = result.data[0].u_id;
                 axios.post(`/user/signup/${user_id_value}/${FirstName}/${LastName}/${encodeURIComponent(Email)}`).then( result => {
+                  console.log("UIV: ", user_id_value)
                   setIsLoading(false);
                   setIsValidated(true);
-                  let payload = {user_id: user_id_value, first_name: FirstName, last_name: LastName, email_address: Email};
+                  let payload = {u_id: user_id_value, first_name: FirstName, last_name: LastName, email_address: Email};
                   dispatch({
                     type: "LOGIN",
                     payload: payload
                   })
               })
-
-              // axios.post(`/user/signup/${user_id_value}/${FirstName}/${LastName}/${encodeURIComponent(Email)}`).then( result => {
-              //   setIsLoading(false);
-              //   setIsValidated(true);
-              //   let payload = {user_id: user_id_value, first_name: FirstName, last_name: LastName, email_address: Email};
-              //   dispatch({
-              //     type: "LOGIN",
-              //     payload: payload
-              // })
               }).catch(e => console.log("Error: ", e));
             }).catch( e => console.log("Error: ", e));
               } else {
@@ -107,8 +98,6 @@ export default function SignUp() {
               }
         });
       } else {
-        console.log(result.data)
-
         setUsernameTaken(true);
         setUserName("");
         setIsLoading(false);

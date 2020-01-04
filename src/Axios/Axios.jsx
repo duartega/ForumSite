@@ -11,14 +11,12 @@ export function AxiosCreatePost(Header, Body, User_Id) {
   // const method = Body ? HeaderandBody : HeaderOnly;
 
   axios.post(HeaderandBody).then(result => {
-    if (result.status === 200) {
-      alert("Your post has been added!");
-    } else {
+    if (result.status !== 200) {
       console.log("Return code: ", result.status);
       alert("Something may have went wrong. Please try clicking submit one more time. Error Code: ", result.status);
     }
   }).catch(e => console.log(e));
-};
+}
 
 
 export function AxiosGetPost(Post_Id, User_Id) {
@@ -26,7 +24,7 @@ export function AxiosGetPost(Post_Id, User_Id) {
     return result.data[0];
   }).catch(e => console.log(e));
   console.log("returning")
-};
+}
 
 function getDate() {
   let d = new Date();

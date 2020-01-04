@@ -23,7 +23,7 @@ const styles = {
 export default function MyPosts(props) {
 
   let { post_id } = useParams();
-  let UserName = localStorage.getItem('first_name').replace(/['"]+/g, '');
+  let UserName = localStorage.getItem('first_name');
   let User_id = localStorage.getItem('user_id');
 
   // Will change to post_id and user_id
@@ -42,7 +42,6 @@ export default function MyPosts(props) {
         }
         ).then( result => {
       setPost(...result.data);
-      console.log(result.data)
     }).catch(e => console.log(e));
 
     axios.get(`/post/getComments/${post_id}`).then( result => {
@@ -58,12 +57,12 @@ export default function MyPosts(props) {
           <Card style={{marginBottom: "5px", marginTop: "5px", marginRight: "5px"}}>
             <Header
                 username={UserName}
-                date={Post["time_date"]}
-                headerTitle={Post["post_header"]}
+                date={Post?.["time_date"]}
+                headerTitle={Post?.["post_header"]}
                 views={props.views}
               />
               <hr style={{marginLeft: "100px", marginRight: "100px"}}/>
-              <Body body={Post["post_body"]}/>
+              <Body body={Post?.["post_body"]}/>
               {props.body && <hr/>}
               <Footer upvote={0} downvote={0}/>
            </Card>

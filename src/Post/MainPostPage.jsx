@@ -28,6 +28,7 @@ export default function MainPostPage(props) {
 
   useEffect(() => {
     axios.get(`/post/getAllPosts`).then( result => {
+      console.log("RESULTS: ", result.data);
       setRes(result.data);
     }).catch(e => console.log(e));
   }, []);

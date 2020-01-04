@@ -30,7 +30,7 @@ export default function MyPosts(props) {
   const [PostID, setPostID] = React.useState(null);
 
   useEffect(() => {
-    let u_id = localStorage.getItem('first_name').replace(/['"]+/g, '');
+    let u_id = localStorage.getItem('user_id');
     axios.get(`/post/get/${u_id}`).then( result => {
       console.log("RESULT: ", result.data);
       setRes(result.data);
@@ -50,7 +50,7 @@ export default function MyPosts(props) {
       {
         res.map((index, idx) => (
           <Card key={idx} style={{marginBottom: "5px", marginTop: "5px", marginRight: "5px"}}
-            onClick={() => handleRedir(index.post_id)}>
+            onClick={() => handleRedir(index.p_id)}>
           {Redir && <Redirect to={{ pathname: "/Post/" +  PostID}}/>}
 
             <Header
