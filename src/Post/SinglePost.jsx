@@ -32,11 +32,19 @@ export default function MyPosts(props) {
   const [Comments, setComments] = React.useState([]);
 
   useEffect(() => {
-    axios.get(`/post/get/${User_id}/${post_id}`).then( result => {
+    axios.get(`/post/get/${User_id}/${post_id}`,
+        {
+          headers: {
+          "Authorization": "Bearer " + localStorage.getItem('JWT')
+          },
+            user_id: User_id,
+            post_id: post_id,
+        }
+        ).then( result => {
       setPost(...result.data);
+      console.log(result.data)
     }).catch(e => console.log(e));
 
-    console.log(post_id)
     axios.get(`/post/getComments/${post_id}`).then( result => {
         setComments(result.data);
         console.log("Get Comments: ", result.data);
