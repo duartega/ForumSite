@@ -6,7 +6,8 @@ export function AxiosCreatePost(Header, Body, User_Id) {
 
   // Differentiate between if they have a a body or not
   // const HeaderOnly = `/post/create/${Header}/${User_Id}`;
-  const HeaderandBody = `/post/create/${e(Header)}/${e(Body)}/${User_Id}/${date}`;
+  let u_id = User_Id.replace(/['"]+/g, '');
+  const HeaderandBody = `/post/create/${e(Header)}/${e(Body)}/${u_id}/${date}`;
   // const method = Body ? HeaderandBody : HeaderOnly;
 
   axios.post(HeaderandBody).then(result => {

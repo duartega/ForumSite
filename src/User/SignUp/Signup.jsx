@@ -70,23 +70,34 @@ export default function SignUp() {
     }
 
     setIsLoading(true);
+    let user_id_value = "";
     axios.get(`/user/checkUsername/${UserName}`).then ( result => {
-      console.log(result.data)
+      console.log(result.data);
       if (result.data.unused) {
         setUsernameTaken(false);
         axios.get(`/user/checkEmail/${encodeURIComponent(Email)}`).then ( result => {
           if (result.data.unused) {
             axios.post(`/user/signup/${UserName}/${Password}`).then ( result => {
-              let id = result.data.insertId;
-              // If the creation was sucessful, continue to add the rest of the data
-              axios.post(`/user/signup/${result.data.insertId}/${FirstName}/${LastName}/${encodeURIComponent(Email)}`).then( result => {
-                setIsLoading(false);
-                setIsValidated(true);
-                let payload = {user_id: id, first_name: FirstName, last_name: LastName, email_address: Email};
-                dispatch({
-                  type: "LOGIN",
-                  payload: payload
+              axios.get(`/user/user_id/${UserName}`).then(result => {
+                user_id_value = result.data[0].u_id;
+                axios.post(`/user/signup/${user_id_value}/${FirstName}/${LastName}/${encodeURIComponent(Email)}`).then( result => {
+                  setIsLoading(false);
+                  setIsValidated(true);
+                  let payload = {user_id: user_id_value, first_name: FirstName, last_name: LastName, email_address: Email};
+                  dispatch({
+                    type: "LOGIN",
+                    payload: payload
+                  })
               })
+
+              // axios.post(`/user/signup/${user_id_value}/${FirstName}/${LastName}/${encodeURIComponent(Email)}`).then( result => {
+              //   setIsLoading(false);
+              //   setIsValidated(true);
+              //   let payload = {user_id: user_id_value, first_name: FirstName, last_name: LastName, email_address: Email};
+              //   dispatch({
+              //     type: "LOGIN",
+              //     payload: payload
+              // })
               }).catch(e => console.log("Error: ", e));
             }).catch( e => console.log("Error: ", e));
               } else {

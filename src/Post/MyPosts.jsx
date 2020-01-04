@@ -30,7 +30,9 @@ export default function MyPosts(props) {
   const [PostID, setPostID] = React.useState(null);
 
   useEffect(() => {
-    axios.get(`/post/get/${localStorage.getItem('user_id')}`).then( result => {
+    let u_id = localStorage.getItem('first_name').replace(/['"]+/g, '');
+    axios.get(`/post/get/${u_id}`).then( result => {
+      console.log("RESULT: ", result.data);
       setRes(result.data);
     }).catch(e => console.log(e));
     // Update the document title using the browser API
