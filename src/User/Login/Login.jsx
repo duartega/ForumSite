@@ -57,11 +57,10 @@ export default function Login() {
         password: Password
     }).then( result => {
       // Check if any user data return, if it did then we know the login was successful
-
-      if (result.data[0]) {
+      if (result.data.token) {
         setIsValidated(true);
         setIsLoading(false);
-        var decoded = jwt_decode(result.data);
+        var decoded = jwt_decode(result.data.token);
         dispatch({
           type: "LOGIN",
           payload: decoded.data
