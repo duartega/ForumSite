@@ -16,9 +16,9 @@ import {
 export default function Login() {
 
   var jwt_decode = require('jwt-decode');
-  const [Email, setEmail] = useState(null);
+  const [Email, setEmail] = useState("");
   const [EmptyEmail, setEmptyEmail] = useState(false);
-  const [Password, setPassword] = useState(null);
+  const [Password, setPassword] = useState("");
   const [EmptyPassword, setEmptyPassword] = useState(false);
   const [isValidated, setIsValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -52,13 +52,16 @@ export default function Login() {
     }
     
     setIsLoading(true);
-    axios.post(`/user/login/${Email}/${Password}`).then( result => {
+    axios.post(`/user/login/`, {
+        user_name: Email,
+        password: Password
+    }).then( result => {
       // Check if any user data return, if it did then we know the login was successful
 
       if (result.data[0]) {
         setIsValidated(true);
         setIsLoading(false);
-        var decoded = jwt_decode(result.data)
+        var decoded = jwt_decode(result.data);
         dispatch({
           type: "LOGIN",
           payload: decoded.data
