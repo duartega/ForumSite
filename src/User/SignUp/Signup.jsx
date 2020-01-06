@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from '../../ConfigAxios';
 import {Redirect} from 'react-router-dom';
 import { AuthContext } from '../../App';
+import * as Validator from 'email-validator';
 import {
   Container, Col, Form,
   FormGroup, Label, Input,
@@ -24,6 +25,8 @@ export default function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
   const [isValidated, setIsValidated] = useState(false);
   const [EmptyPassword, setEmptyPassword] = useState(false);
+  const [ValidEmail, setValidEmail] = useState(false);
+  const [InvalidEmail, setInvalidEmail] = useState(false);
   const { dispatch } = React.useContext(AuthContext);
 
 
@@ -70,7 +73,7 @@ export default function SignUp() {
 
     setIsLoading(true);
 
-    axios.post(`/user/signup`, {
+    ValidEmail && axios.post(`/user/signup`, {
       user_name: UserName,
       password: Password,
       first_name: FirstName,
@@ -92,10 +95,19 @@ export default function SignUp() {
       alert("Please double check that you aren't using a username or email that is already taken.");
       console.log(err)
     });
+
+    if (!ValidEmail) {
+      setIsLoading(false)
+      setInvalidEmail(true);
+    }
   }
 
   function handleEmailCheck(email_address) {
+    setValidEmail(Validator.validate(email_address.target.value));
     setEmail(email_address.target.value);
+
+    // ValidEmail && setInvalidEmail(false)
+
     axios.get(`/user/CheckEmailInstantly/${email_address.target.value}`).then(result => {
       if (result.status === 200) {
         setEmailTaken(false);
@@ -175,7 +187,7 @@ export default function SignUp() {
             onChange={(text) => handleUsernameCheck(text)}
             />
             {UsernameTaken && <FormFeedback>Username is already taken.</FormFeedback>}
-            {EmptyUserName && (!UsernameTaken && <FormFeedback>Please enter an email.</FormFeedback>)}
+            {EmptyUserName && (!UsernameTaken && <FormFeedback>Please enter a username.</FormFeedback>)}
           </FormGroup>
         </Col>
 
@@ -183,7 +195,7 @@ export default function SignUp() {
           <FormGroup>
             <Label>Email</Label>
             <Input
-            invalid={EmptyEmail || EmailTaken}
+            invalid={EmptyEmail || EmailTaken || InvalidEmail}
             type="email"
             id="Email"
             placeholder="Ex: JohnSmith@gmail.com"
@@ -192,7 +204,8 @@ export default function SignUp() {
             onChange={(text) => handleEmailCheck(text)}
             />
             {EmailTaken && <FormFeedback>Email already in use.</FormFeedback>}
-            {EmptyEmail && (!EmailTaken &&  <FormFeedback>Please enter a password.</FormFeedback>)}
+            {InvalidEmail && <FormFeedback>Please enter a valid email.</FormFeedback>}
+            {EmptyEmail && (!EmailTaken &&  <FormFeedback>Please enter an email.</FormFeedback>)}
           </FormGroup>
         </Col>
 
