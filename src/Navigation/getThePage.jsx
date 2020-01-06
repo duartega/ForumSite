@@ -54,7 +54,7 @@ export default function getThePage(isAuthenticated) {
             <SinglePost />
           </Route>
           <Route exact path="/">
-            <Landing />
+            <MainPostPage />
           </Route>
           <Route path="*">
             <MainPostPage />

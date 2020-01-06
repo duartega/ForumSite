@@ -56,7 +56,7 @@ export default function CreatePost() {
       ).then( result => {
           // TODO: Redirect to page for the post that was just created
           // console.log(result.data)
-          setPostID(result.data[0].p_id);
+          setPostID(result.data.p_id);
           setRedirect(true);
       }).catch(e => console.log(e));
       // Was going to set this to null for memory leaks but taking out for now as I test

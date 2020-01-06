@@ -61,7 +61,7 @@ export default function SignUp() {
     return;
   }
 
-  function signup() {
+  async function signup() {
     checkFields();
 
     if (!FirstName || !LastName || !Email || !Password || !UserName) {
@@ -69,42 +69,60 @@ export default function SignUp() {
     }
 
     setIsLoading(true);
-    let user_id_value = "";
-    axios.get(`/user/checkUsername/${UserName}`).then ( result => {
-      console.log(result.data);
-      if (result.data.unused) {
-        setUsernameTaken(false);
-        axios.get(`/user/checkEmail/${encodeURIComponent(Email)}`).then ( result => {
-          if (result.data.unused) {
-            axios.post(`/user/signup/${UserName}/${Password}`).then ( result => {
-              axios.get(`/user/user_id/${UserName}`).then(result => {
-                user_id_value = result.data[0].u_id;
-                axios.post(`/user/signup/${user_id_value}/${FirstName}/${LastName}/${encodeURIComponent(Email)}`).then( result => {
-                  console.log("UIV: ", user_id_value)
-                  setIsLoading(false);
-                  setIsValidated(true);
-                  let payload = {u_id: user_id_value, first_name: FirstName, last_name: LastName, email_address: Email};
-                  dispatch({
-                    type: "LOGIN",
-                    payload: payload
-                  })
-              })
-              }).catch(e => console.log("Error: ", e));
-            }).catch( e => console.log("Error: ", e));
-              } else {
-                setEmailTaken(true);
-                setEmail("");
-                setIsLoading(false);
-              }
-        });
-      } else {
-        setUsernameTaken(true);
-        setUserName("");
-        setIsLoading(false);
-        return;
-      }
+
+    axios.post(`/user/signup`, {
+      user_name: UserName,
+      password: Password,
+      first_name: FirstName,
+      last_name: LastName,
+      email_address: Email
+    }).then (result => {
+      let u_id = result.data[0].u_id;
+      localStorage.setItem('JWT', result.data.token);
+      setIsLoading(false);
+      setIsValidated(true);
+      let payload = {u_id, first_name: FirstName, last_name: LastName, email_address: Email};
+      dispatch({
+        type: "LOGIN",
+        payload: payload
+      })
+      }).catch((err) => {
+        // This is when they ignore that the username or email is already taken
+      setIsLoading(false);
+      alert("Please double check that you aren't using a username or email that is already taken.");
+      console.log(err)
     });
-  };
+  }
+
+  function handleEmailCheck(email_address) {
+    setEmail(email_address.target.value);
+    axios.get(`/user/CheckEmailInstantly/${email_address.target.value}`).then(result => {
+      if (result.status === 200) {
+        setEmailTaken(false);
+      }
+    }).catch(err => {
+      if (err.response.status === 409) {
+        setEmailTaken(true);
+        setIsLoading(false);
+      }
+    }
+    );
+  }
+
+  function handleUsernameCheck(user_name) {
+    setUserName(user_name.target.value);
+    axios.get(`/user/CheckUsernameInstantly/${user_name.target.value}`).then(result => {
+      if (result.status === 200) {
+        setUsernameTaken(false);
+      }
+    }).catch(err => {
+          if (err.response.status === 409) {
+            setUsernameTaken(true);
+            setIsLoading(false);
+          }
+        }
+    );
+  }
 
   return (
     <Container className="center-sign-up card-sign-up" onSubmit={e => e.preventDefault()}>
@@ -148,12 +166,13 @@ export default function SignUp() {
           <FormGroup>
             <Label>Username</Label>
             <Input
-            type="Username"
+                invalid={UsernameTaken || EmptyUserName}
+            type="username"
             id="Username"
             placeholder="Ex: j.smith294"
             maxLength="50"
             required
-            onChange={(text) => setUserName(text.target.value)}
+            onChange={(text) => handleUsernameCheck(text)}
             />
             {UsernameTaken && <FormFeedback>Username is already taken.</FormFeedback>}
             {EmptyUserName && (!UsernameTaken && <FormFeedback>Please enter an email.</FormFeedback>)}
@@ -170,7 +189,7 @@ export default function SignUp() {
             placeholder="Ex: JohnSmith@gmail.com"
             maxLength="100"
             required
-            onChange={(text) => setEmail(text.target.value)}
+            onChange={(text) => handleEmailCheck(text)}
             />
             {EmailTaken && <FormFeedback>Email already in use.</FormFeedback>}
             {EmptyEmail && (!EmailTaken &&  <FormFeedback>Please enter a password.</FormFeedback>)}
