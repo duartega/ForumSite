@@ -6,7 +6,7 @@ const AxiosConfig = () => {
 
     // Set the baseURL for all requests to the API domain instead of the current domain
     // Use your API's port number in place of 8090.
-    axios.defaults.baseURL = `http://159.89.87.67:3000/api/v1/`;
+    axios.defaults.baseURL = `http://159.89.87.67`;
 
 
     // Allow the browser to send cookies to the API domain (which include auth_token)
