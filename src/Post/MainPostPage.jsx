@@ -32,8 +32,6 @@ const styles = {
 export default function MainPostPage(props) {
 
   const [res, setRes] = React.useState([]);
-  const value = React.useContext(AuthContext);
-  console.log(value)
 
   useEffect(() => {
     axios.get(`/post/getAllPosts`).then( result => {
