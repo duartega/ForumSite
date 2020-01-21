@@ -20,7 +20,7 @@ export default function AccountSettings() {
   const [LastName, setLastName] = useState(null);
 
   return (
-    <Container className="center-settings">
+    <div style={{margin: "15px"}}>
       <Label>Welcome, {localStorage.getItem('first_name')}</Label>
       <p>Below are your account settings.</p>
 
@@ -94,6 +94,6 @@ export default function AccountSettings() {
           <Button className="btn-100" color="primary">Save</Button>
         </Col>
       </Form>
-    </Container>
+    </div>
   )
 }

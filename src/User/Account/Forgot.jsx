@@ -18,11 +18,11 @@ export default function ForgotAccount () {
 
     return (
         <Container className="center-sign-up card-sign-up" onSubmit={e => e.preventDefault() }>
-        <h2 className="sign-up-header">Change Password</h2>
+        <h2 className="sign-up-header">Reset Password</h2>
           <Form>
             <Col>
             <FormGroup>
-              <Label>Username</Label>
+              <Label>Email</Label>
               <Input
                 type="email"
                 id="Email"
@@ -31,34 +31,35 @@ export default function ForgotAccount () {
                 value={Username}
                 required
                 onChange={(text) => setUsername(text.target.value)}
-                placeholder="Ex: jSmtih123"
+                placeholder="Ex: jSmtih123@gmail.com"
               />
             </FormGroup>
             </Col>
+              <Col>
+                  <Button
+                      className="btn-100"
+                      color="primary"
+                      onClick={() => resetPassword(Username, Password)}
+                  >Submit</Button>
+              </Col>
           </Form>
   
-          <Form>
-            <Col>
-            <FormGroup>
-              <Label>Password</Label>
-              <Input
-              type="password"
-            //   value={Password}
-            //   invalid={EmptyPassword || incorrectLogin}
-              required
-              onChange={text => setPassword(text.target.value)}
-              placeholder="********"
-              />
-              </FormGroup>
-            </Col>
-            <Col>
-              <Button
-              className="btn-100"
-              color="primary"
-              onClick={() => resetPassword(Username, Password)}
-              >Submit</Button>
-            </Col>
-          </Form>
+          {/*<Form>*/}
+          {/*  <Col>*/}
+          {/*  <FormGroup>*/}
+          {/*    <Label>Password</Label>*/}
+          {/*    <Input*/}
+          {/*    type="password"*/}
+          {/*  //   value={Password}*/}
+          {/*  //   invalid={EmptyPassword || incorrectLogin}*/}
+          {/*    required*/}
+          {/*    onChange={text => setPassword(text.target.value)}*/}
+          {/*    placeholder="********"*/}
+          {/*    />*/}
+          {/*    </FormGroup>*/}
+          {/*  </Col>*/}
+          {/*  */}
+          {/*</Form>*/}
       </Container>
     )
 };

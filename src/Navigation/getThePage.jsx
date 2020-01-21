@@ -10,12 +10,11 @@ import SinglePost from '../Post/SinglePost';
 import ForgotAccount from '../User/Account/Forgot'
 
 // import ErrorPage from './ErrorPage';
-import { Route, Switch, Redirect, useParams } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
-export default function getThePage(isAuthenticated) {
+export default function getThePage() {
 
-  // console.log("isAuthenticated: ", isAuthenticated);
-  // console.log("localStorage: ", localStorage.getItem("user_id"))
+
   return(
       <Switch>
         {!localStorage.getItem("user_id") ? (

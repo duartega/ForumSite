@@ -4,6 +4,7 @@ import Body from './Body';
 import Footer from './Footer';
 import axios from '../ConfigAxios';
 import { Card } from '@material-ui/core';
+import { AuthContext } from '../App';
 
 import {
   Row,
@@ -13,22 +14,29 @@ import {
 const styles = {
   Root: {
   // height: "95vh",
-  backgroundColor: "#515585",
-  margin: "10px",
-  padding: "15px"
+  // backgroundColor: "#515585",
+  // margin: "10px",
+  paddingTop: "15px",
+  paddingBottom: "15px",
+  },
+  Card: {
+    marginBottom: "5px",
+    marginTop: "5px",
+    marginRight: "5px",
+    border: "1px solid",
+    borderColor: "#808080"
   }
 };
 
 
 export default function MainPostPage(props) {
 
-  // Will change to post_id and user_id
-  // AxiosGetPost(23, 1)
   const [res, setRes] = React.useState([]);
+  const value = React.useContext(AuthContext);
+  console.log(value)
 
   useEffect(() => {
     axios.get(`/post/getAllPosts`).then( result => {
-      // console.log("RESULTS: ", result.data);
       setRes(result.data);
     }).catch(e => console.log(e));
   }, []);
@@ -38,7 +46,7 @@ export default function MainPostPage(props) {
     <Col style={styles.Root}>
       {
         res.map((index, idx) => (
-          <Card key={idx} style={{marginBottom: "5px", marginTop: "5px", marginRight: "5px"}}>
+          <Card key={idx} style={styles.Card} >
             <Header
                 username={index["first_name"]}
                 date={index["time_date"]}

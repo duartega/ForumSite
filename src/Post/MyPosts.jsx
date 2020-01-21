@@ -14,9 +14,17 @@ import {
 const styles = {
   Root: {
   // height: "95vh",
-  backgroundColor: "#515585",
-  margin: "10px",
-  padding: "15px"
+  // backgroundColor: "#515585",
+  // margin: "10px",
+  paddingTop: "15px",
+  paddingBottom: "15px",
+  },
+  Card: {
+    marginBottom: "5px",
+    marginTop: "5px",
+    marginRight: "5px",
+    border: "1px solid",
+    borderColor: "#808080"
   }
 };
 
@@ -49,7 +57,7 @@ export default function MyPosts(props) {
     <Col style={styles.Root}>
       {
         res.map((index, idx) => (
-          <Card key={idx} style={{marginBottom: "5px", marginTop: "5px", marginRight: "5px"}}
+          <Card key={idx} style={styles.Card}
             onClick={() => handleRedir(index.p_id)}>
           {Redir && <Redirect to={{ pathname: "/Post/" +  PostID}}/>}
 

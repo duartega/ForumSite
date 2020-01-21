@@ -97,7 +97,7 @@ export default function SignUp() {
     });
 
     if (!ValidEmail) {
-      setIsLoading(false)
+      setIsLoading(false);
       setInvalidEmail(true);
     }
   }
