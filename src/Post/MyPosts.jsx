@@ -42,6 +42,7 @@ export default function MyPosts(props) {
     axios.get(`/post/get/${u_id}`).then( result => {
       console.log("RESULT: ", result.data);
       setRes(result.data);
+      console.log(result)
     }).catch(e => console.log(e));
     // Update the document title using the browser API
   }, []);
@@ -70,7 +71,7 @@ export default function MyPosts(props) {
               <hr style={{marginLeft: "100px", marginRight: "100px"}}/>
               <Body body={index["post_body"]}/>
               {props.body && <hr/>}
-              <Footer upvote={0} downvote={0}/>
+              <Footer upvote={index["post_up_votes"]} downvote={index["post_down_votes"]} p_id={index["p_id"]}/>
             </Card>
         ))
       }

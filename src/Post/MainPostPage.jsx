@@ -33,6 +33,7 @@ export default function MainPostPage(props) {
 
   const [res, setRes] = React.useState([]);
 
+
   useEffect(() => {
     axios.get(`/post/getAllPosts`).then( result => {
       setRes(result.data);

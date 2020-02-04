@@ -62,6 +62,7 @@ export default function Login() {
         setIsLoading(false);
         var decoded = jwt_decode(result.data.token);
         localStorage.setItem('JWT', result.data.token);
+        console.log(decoded)
         dispatch({
           type: "LOGIN",
           payload: decoded.data

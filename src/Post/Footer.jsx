@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowDropUp, ArrowDropDown } from '@material-ui/icons';
 import CreateComment from '../Comments/CreateComment';
+import axios from '../ConfigAxios';
 
 
 const styles ={
@@ -16,22 +17,43 @@ export default function Footer(props) {
 
   const [UpVote, setUpVote] = useState(props.upvote);
   const [DownVote, setDownVote] = useState(props.downvote);
+  const [Post_ID, setPost_ID] = useState(props.p_id);
   const [Vote, setVote] = useState(null);
   const [createComment, setcreateComment] = useState(false);
+
+  // axios.get(`/post/vote/${props?.post_id}`).then(response => {
+  //   console.log(response);
+  //     }
+  // )
+  function makeCall(up, down, pos, neg) {
+    axios.post(`/post/vote/${props.p_id}/`, {
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem('JWT')
+      },
+      up,
+      down,
+      pos,
+      neg
+    });
+  }
 
   function handleVote(vote) {
     if (vote === "up") {
       if (!Vote){
         setUpVote(UpVote + 1);
         setVote("up");
+        makeCall(true, false, true, false)
       } else if (Vote === "down") {
         setUpVote(UpVote + 1);
         setVote("up");
         setDownVote(DownVote - 1);
+        makeCall(false, true, false, true);
+        makeCall(true, false, true, false);
       }
       else if (Vote === "up") {
         setUpVote(UpVote - 1);
         setVote(null);
+        makeCall(true, false, false, true);
       }
     }
 
@@ -40,6 +62,7 @@ export default function Footer(props) {
       if (!Vote) {
         setDownVote(DownVote + 1);
         setVote("down");
+        makeCall(false, true, false, true);
       }
       // If the user has already voted up and now clicked the down, it will
       // remove one from the up vote and add one to the down vote
@@ -47,11 +70,14 @@ export default function Footer(props) {
       setUpVote(UpVote - 1);
       setDownVote(DownVote + 1)
       setVote("down");
+        makeCall(false, true, false, true);
+        makeCall(true, false, false, true);
     }
     // If the user decides to revoke a vote, allow the user to do so
     else if (Vote === "down") {
       setDownVote(DownVote - 1);
       setVote(null);
+        makeCall(false, true, true, false);
     }
   }
   }

@@ -38,8 +38,16 @@ export default function CreatePost() {
   const [Body, setBody] = useState(null);
   const [Redir, setRedirect] = React.useState(false);
   const [PostID, setPostID] = React.useState(null);
+  const [Dark_Mode, setDark_Mode] = useState(localStorage.getItem('dark_mode_active'));
+  const [TextColor, setTextColor] = useState("black");
 
-  function CheckInput() {
+  if (Dark_Mode === "1") {
+      setDark_Mode("black");
+      setTextColor("white")
+  }
+
+
+    function CheckInput() {
     if (!Header) {
       alert('Please fill out the question field.');
     } else {
@@ -76,7 +84,7 @@ export default function CreatePost() {
     <Col style={styles.Root}>
       {Redir && <Redirect to={{ pathname: "/Post/" +  PostID}}/>}
       <Row style={styles.Root}>
-        <h4>Title</h4>
+        <h4 style={{color: TextColor}}>Title</h4>
         <Input
         style={styles.Input}
         placeholder="Ex: Is bigfoot real?"
@@ -86,7 +94,7 @@ export default function CreatePost() {
         required
         />
       </Row>
-      <Row style={styles.Body}>
+      <Row style={{color: TextColor, margin: "20px 10px 10px 10px"}}>
         Include all information that you deem necessary for someone to answer your post (optional):
         <Input
         type="textarea"

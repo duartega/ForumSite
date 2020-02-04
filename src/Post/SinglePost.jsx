@@ -42,6 +42,7 @@ export default function MyPosts(props) {
         }
         ).then( result => {
       setPost(...result.data);
+      console.log("Here are the results: ", ...result.data)
     }).catch(e => console.log(e));
 
     axios.get(`/post/getComments/${post_id}`).then( result => {
@@ -64,7 +65,7 @@ export default function MyPosts(props) {
               <hr style={{marginLeft: "100px", marginRight: "100px"}}/>
               <Body body={Post?.["post_body"]}/>
               {props.body && <hr/>}
-              <Footer upvote={0} downvote={0}/>
+              <Footer upvote={Post?.["post_up_votes"]} downvote={Post?.["post_down_votes"]} p_id={Post?.["p_id"]}/>
            </Card>
             <Comment data={Comments} />
             
