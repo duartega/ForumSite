@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import axios from '../../ConfigAxios';
 import Switch from '@material-ui/core/Switch';
+import { AuthContext} from "../../App";
 import {
   Container, Col, Form,
   FormGroup, Label, Input,
-  Button, Spinner
+  Button, Spinner, Row
 } from 'reactstrap';
 import AvatarPic from '../UserAvatar';
+import {Redirect} from "react-router-dom";
 
 export default function AccountSettings() {
 
@@ -18,6 +20,8 @@ export default function AccountSettings() {
   const [TextColor, setTextColor] = useState("black");
   const [SaveButtonText, setSaveButtonText] = useState('Save');
   const [SaveButtonTextDisabled, setSaveButtonTextDisabled] = useState(false);
+  const [Redir, setRedir] = useState(false);
+  const { dispatch } = React.useContext(AuthContext);
   const [Field, setField] = useState({
     Password: null,
     Email: null,
@@ -94,6 +98,23 @@ export default function AccountSettings() {
 
 }
 
+// TODO: Would like to get a popup confirming/ask to enter password to delete
+function DeleteAccount() {
+    axios.delete(`/user/deleteAccount/${localStorage.getItem('user_id')}`,
+        {
+          headers: {
+            "Authorization": "Bearer " + localStorage.getItem('JWT')
+          }
+        }).then(result => {
+          alert('Account has been deleted.');
+          setRedir(true);
+          dispatch({
+                type: "LOGOUT",
+                payload: ""
+              });
+        }).catch(e => console.log(e));
+  };
+
 
   if (Dark_Mode === "1") {
     setDark_Mode("black");
@@ -103,6 +124,7 @@ export default function AccountSettings() {
 
   return (
     <div style={{margin: "15px", backgroundColor: Dark_Mode}}>
+      {Redir && <Redirect to={{ pathname: "/" }}/>}
       <Label style={{color: TextColor}}>Welcome, {localStorage.getItem('first_name')}</Label>
       <p style={{color: TextColor}}>Below are your account settings.</p>
 
@@ -110,8 +132,13 @@ export default function AccountSettings() {
 
       <Col>
           <FormGroup>
-            <AvatarPic onClick={() => console.log("Will change the picture and use file upload")}/>
+            <Col>
+              <AvatarPic onClick={() => console.log("Will change the picture and use file upload")}/>
+
+              <Button color="danger" style={{marginLeft: "80%"}} onClick={() => DeleteAccount()}>Delete Account</Button>
+            </Col>
           </FormGroup>
+
         </Col>
 
         <Col>
