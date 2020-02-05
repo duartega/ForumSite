@@ -1,0 +1,43 @@
+------------------------------------------------
+State single:
+------------------------------------------------
+
+constructor(props) {
+    super(props);
+    this.state = {Password: null};
+}
+
+this.setState({Password: "TestPassword"});
+
+------------------------------------------------
+
+
+
+------------------------------------------------
+Hooks Single:
+------------------------------------------------
+
+const [Password, setPassword] = useState(null);
+
+setPassword("TestPassword");
+
+------------------------------------------------
+
+
+------------------------------------------------
+Hooks Multiple:
+------------------------------------------------
+  const [Field, setField] = useState({
+    Password: null,
+    Email: null,
+    FirstName: null,
+    LastName: null
+  });
+
+  <FieldHere  onChange={handleFieldChange('Password')}/>
+
+  const handleFieldChange = name => event => {
+    setField({ ...Field, [name]: event.target.value });
+  };
+
+------------------------------------------------

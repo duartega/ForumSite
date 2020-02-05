@@ -4,25 +4,26 @@ import Switch from '@material-ui/core/Switch';
 import {
   Container, Col, Form,
   FormGroup, Label, Input,
-  Button,
+  Button, Spinner
 } from 'reactstrap';
 import AvatarPic from '../UserAvatar';
 
 export default function AccountSettings() {
 
-  // These null values will be pulled from axios instead
   // I may add a delete account function
   // Darkmode should load all pages with darkmode from now on, or at least
   // with components that are white
-  const [Email, setEmail] = useState(null);
-  const [Password, setPassword] = useState(null);
-  const [Avatar, setAvatar] = useState(null);
-  const [DarkMode, setDarkMode] = useState(false);
-  const [FirstName, setFirstName] = useState(null);
-  const [LastName, setLastName] = useState(null);
   const [JWT, setJWT] = useState(localStorage.getItem('JWT'));
   const [Dark_Mode, setDark_Mode] = useState(localStorage.getItem('dark_mode_active'));
   const [TextColor, setTextColor] = useState("black");
+  const [SaveButtonText, setSaveButtonText] = useState('Save');
+  const [SaveButtonTextDisabled, setSaveButtonTextDisabled] = useState(false);
+  const [Field, setField] = useState({
+    Password: null,
+    Email: null,
+    FirstName: null,
+    LastName: null
+  });
 
   // we must convert over to bool
   let val = null;
@@ -33,34 +34,71 @@ export default function AccountSettings() {
     checkedB: val,
   });
 
+
+
   const handleChange = name => event => {
     setState({ ...state, [name]: event.target.checked });
   };
 
-  // Updates color scheme
-  if (Dark_Mode === "1") {
-    setDark_Mode("black");
-    setTextColor("white")
-  }
+  // Same thing as (text) => setPassword(text.target.value)
+  // the ...Field allows us to access the json format rather than Field[name]: which doesnt work
+  const handleFieldChange = name => event => {
+    setField({ ...Field,[name]: event.target.value });
+  };
 
-  // NEED TO ADD REFRESH SO CHANGED APPEAR RIGHT AWAY RATHER THAN HAVING TO LOGOUT
+  // Updates color scheme
   function handleSave() {
+    setSaveButtonTextDisabled(true);
+    setSaveButtonText(<Spinner color="info"/>);
     let u_id = localStorage.getItem('user_id');
+    var value = state.checkedB ? 1 : 0;
 
     // had to make the adjustment of not using headers. For whatever reason, headers wont work with a put request...
     axios.put(`/user/accountInfo/${u_id}/`, {
       "Authorization": "Bearer " + JWT,
-      first_name: FirstName,
-      last_name: LastName,
-      email_address: Email,
+      first_name: Field.FirstName,
+      last_name: Field.LastName,
+      email_address: Field.Email,
       u_id: u_id,
       dark_mode_active: state.checkedB
-    }).then( response => (
-        console.log("RES:", response)
-    )).catch(e => console.log(e))
+    }).then( result => {
 
+      // Just in case the user updates the password along with any other info
+      // If we did not do this, the second change password block would be cleared and password would not update correctly
+      if (Field.Password !== null) {
+        axios.post(`/user/resetPassword/${u_id}/`, {
+          "Authorization": "Bearer " + JWT,
+          "password": Field.Password
+        }).catch(err => console.log(err));
+      }
+
+
+      localStorage.setItem('dark_mode_active', value);
+      // Only update the localstorage items that were actually modified
+      let storeValue = [Field.FirstName, Field.LastName, Field.Email];
+      let storeName = ['first_name', 'last_name', 'email_address'];
+      for (let i = 0; i < storeValue.length; i++) {
+        if (storeValue[i] !== null)
+          localStorage.setItem(storeName[i], storeValue[i])
+      }
+      window.location.reload();
+   }).catch(e => console.log(e));
+
+    // Should only reach if the user has entered something in the password field
+    if (Field.Password !== null) {
+      axios.post(`/user/resetPassword/${u_id}/`, {
+        "Authorization": "Bearer " + JWT,
+        "password": Field.Password
+      }).catch(err => console.log(err));
+    }
+
+}
+
+
+  if (Dark_Mode === "1") {
+    setDark_Mode("black");
+    setTextColor("white")
   }
-
 
 
   return (
@@ -84,7 +122,7 @@ export default function AccountSettings() {
             type="text"
             id="Email"
             maxLength="50"
-            onChange={(text) => setEmail(text.target.value)}
+            onChange={handleFieldChange('Email')}
             required
             />
           </FormGroup>
@@ -98,7 +136,7 @@ export default function AccountSettings() {
             type="password"
             id="password"
             maxLength="50"
-            onChange={(text) => setPassword(text.target.value)}
+            onChange={handleFieldChange('Password')}
             required
             />
           </FormGroup>
@@ -112,7 +150,7 @@ export default function AccountSettings() {
             type="text"
             id="First Name"
             maxLength="50"
-            onChange={(text) => setFirstName(text.target.value)}
+            onChange={handleFieldChange('FirstName')}
             required
             />
           </FormGroup>
@@ -126,7 +164,7 @@ export default function AccountSettings() {
             type="text"
             id="Last Name"
             maxLength="50"
-            onChange={(text) => setLastName(text.target.value)}
+            onChange={handleFieldChange('LastName')}
             required
             />
           </FormGroup>
@@ -144,7 +182,7 @@ export default function AccountSettings() {
           </FormGroup>
         </Col>
         <Col>
-          <Button className="btn-100" color="primary" onClick={() => handleSave()}>Save</Button>
+          <Button className="btn-100" color="primary" disabled={SaveButtonTextDisabled} onClick={() => handleSave()}>{SaveButtonText}</Button>
         </Col>
       </Form>
     </div>
