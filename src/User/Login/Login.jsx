@@ -62,7 +62,6 @@ export default function Login() {
         setIsLoading(false);
         var decoded = jwt_decode(result.data.token);
         localStorage.setItem('JWT', result.data.token);
-        console.log(decoded)
         dispatch({
           type: "LOGIN",
           payload: decoded.data
@@ -98,8 +97,7 @@ export default function Login() {
           <FormGroup>
             <Label>Email</Label>
             <Input
-              type="email"
-              id="Email"
+              type="username"
               invalid={inputCheck()}
               autoFocus
               value={Email}

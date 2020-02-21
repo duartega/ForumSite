@@ -51,7 +51,7 @@ export default function MyPosts(props) {
       }).catch(e => console.log(e));
     // Update the document title using the browser API
     
-  }, []);
+  }, [User_id, post_id]);
 
   return (
     <Col style={styles.Root}>

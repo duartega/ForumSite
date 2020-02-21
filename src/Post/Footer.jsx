@@ -17,7 +17,6 @@ export default function Footer(props) {
 
   const [UpVote, setUpVote] = useState(props.upvote);
   const [DownVote, setDownVote] = useState(props.downvote);
-  const [Post_ID, setPost_ID] = useState(props.p_id);
   const [Vote, setVote] = useState(null);
   const [createComment, setcreateComment] = useState(false);
 

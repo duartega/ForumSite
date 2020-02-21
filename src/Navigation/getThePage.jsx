@@ -1,7 +1,6 @@
 import React from 'react';
 import Landing from '../User/Login/Login';
 import MainPostPage from '../Post/MainPostPage';
-import Main from '../Components/MainScreen';
 import NewPost from '../Post/CreatePost';
 import Account from '../User/Account/Settings';
 import MyPosts from '../Post/MyPosts';

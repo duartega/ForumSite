@@ -7,7 +7,6 @@ import {
 } from 'reactstrap';
 import { AxiosCreatePost } from '../Axios/Axios';
 import {Redirect} from "react-router-dom";
-import {Card} from "@material-ui/core";
 import axios from "../ConfigAxios";
 
 const styles = {
@@ -54,7 +53,6 @@ export default function CreatePost() {
       // TODO: Update so that the user id is the currently logged in user
         let User_id = localStorage.getItem("user_id");
       AxiosCreatePost(Header, Body, localStorage.getItem("user_id"));
-        let post_id = localStorage.getItem('RecentlyCreatedPostID');
       axios.get(`/post/getRecentPost/${User_id}/`,
           {
             headers: {

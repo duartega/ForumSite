@@ -10,11 +10,9 @@ function App() {
 
   const [state, dispatch] = React.useReducer(reducer, false);
     const [Dark_Mode, setDark_Mode] = useState(localStorage.getItem('dark_mode_active'));
-    const [TextColor, setTextColor] = useState("black");
 
     if (Dark_Mode === "1") {
         setDark_Mode("black")
-        setTextColor("white")
     }
 
 
@@ -23,7 +21,7 @@ function App() {
   return (
     <AuthContext.Provider value={{state, dispatch}}>
        <Navbar loggedIn={localStorage.getItem("user_id")}/>
-      <Row xl style={{paddingLeft: "15px", backgroundColor: "#FAFAFA", height: window.innerHeight-65}}>
+      <Row style={{paddingLeft: "15px", backgroundColor: "#FAFAFA", height: window.innerHeight-65}}>
         <Col style={{paddingLeft: "0px", backgroundColor: Dark_Mode}}>
 
         {getThePage()}

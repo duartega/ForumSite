@@ -3,9 +3,9 @@ import axios from '../../ConfigAxios';
 import Switch from '@material-ui/core/Switch';
 import { AuthContext} from "../../App";
 import {
-  Container, Col, Form,
+  Col, Form,
   FormGroup, Label, Input,
-  Button, Spinner, Row
+  Button, Spinner
 } from 'reactstrap';
 import AvatarPic from '../UserAvatar';
 import {Redirect} from "react-router-dom";

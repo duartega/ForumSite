@@ -10,6 +10,7 @@ export default function CreateComment() {
 
     const [CommentText, setCommentText] = React.useState(null);
 
+
     function handleClick() {
         alert("Comment has been added")
     }

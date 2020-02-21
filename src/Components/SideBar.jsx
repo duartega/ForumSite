@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Label } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 export default function SideBar(props) {
