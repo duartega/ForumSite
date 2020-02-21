@@ -97,7 +97,9 @@ export default function Login() {
           <FormGroup>
             <Label>Email</Label>
             <Input
-              type="text"
+              type="email"
+              id="Email"
+              autocomplete
               invalid={inputCheck()}
               autoFocus
               value={Email}
