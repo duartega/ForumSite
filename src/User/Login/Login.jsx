@@ -105,7 +105,7 @@ export default function Login() {
               value={Email}
               required
               onChange={(text) => setEmail(text.target.value)}
-              placeholder="Ex: JohnSmith@gmail.com"
+              placeholder="Ex: JohnSmith94"
             />
           {!incorrectLogin ? "" : <FormFeedback>Email/Password incorrect. Please try again.</FormFeedback>}
           {EmptyEmail && <FormFeedback>Please enter your email.</FormFeedback>}
