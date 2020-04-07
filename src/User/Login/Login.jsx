@@ -95,7 +95,7 @@ export default function Login() {
         <Form>
           <Col>
           <FormGroup>
-            <Label>Email</Label>
+            <Label>Username</Label>
             <Input
               type="email"
               id="Email"
